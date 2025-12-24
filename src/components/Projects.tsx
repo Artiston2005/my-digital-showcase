@@ -78,76 +78,57 @@ const Projects = () => {
           </p>
         </motion.div>
         
+        {/* Unified Projects Grid */}
         <motion.div
+          className="grid md:grid-cols-2 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Featured Project */}
-          <motion.div className="mb-12" variants={itemVariants}>
-            <article className="group relative bg-card border border-border rounded-3xl overflow-hidden card-hover">
-              <div className="grid lg:grid-cols-2 gap-0">
-                {/* Image */}
-                <div className="aspect-video lg:aspect-auto lg:h-full bg-secondary relative overflow-hidden">
-                  <img 
-                    src={projects[0].image} 
-                    alt={projects[0].title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/20" />
-                </div>
-                
-                {/* Content */}
-                <div className="p-8 lg:p-12 flex flex-col justify-center">
-                  <span className="text-xs font-body tracking-widest text-primary uppercase mb-4">Featured Project</span>
-                  <h3 className="font-display font-bold text-3xl lg:text-4xl mb-4 group-hover:text-primary transition-colors">
-                    {projects[0].title}
-                  </h3>
-                  <p className="text-muted-foreground font-body text-lg leading-relaxed mb-6">
-                    {projects[0].description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {projects[0].tags.map((tag) => (
-                      <span key={tag} className="skill-tag">{tag}</span>
-                    ))}
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-3">
-                    {projects[0].links.map((link) => (
-                      <Button key={link.label} variant="hero" size="default" asChild>
-                        <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
-                          {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
-                          {link.label}
-                        </a>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </article>
-          </motion.div>
-          
-          {/* Other Projects Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.slice(1).map((project) => (
+          {projects.map((project) => {
+            // Check if this is the vertical Android project
+            const isVerticalImage = project.tags.includes("Android");
+
+            return (
               <motion.article 
                 key={project.title}
                 variants={itemVariants}
                 className="group relative bg-card border border-border rounded-2xl overflow-hidden card-hover h-full flex flex-col"
               >
-                {/* Project Image */}
+                {/* Project Image Container */}
                 <div className="aspect-video bg-secondary relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-sm">
+                  {isVerticalImage ? (
+                    /* Special Layout for Vertical Images (Blur Effect) */
+                    <>
+                      {/* Blurred Background to fill space */}
+                      <div className="absolute inset-0">
+                        <img 
+                          src={project.image} 
+                          alt=""
+                          className="w-full h-full object-cover opacity-40 blur-xl scale-110"
+                        />
+                      </div>
+                      {/* Main Image (Contained) */}
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        loading="lazy"
+                        className="relative w-full h-full object-contain p-2 z-10 transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </>
+                  ) : (
+                    /* Standard Layout for Landscape Images */
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
+
+                  {/* Hover overlay with buttons */}
+                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-[2px] z-20">
                     {project.links.map((link) => (
                       <Button key={link.label} variant="hero" size="sm" asChild>
                         <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
@@ -161,9 +142,17 @@ const Projects = () => {
                 
                 {/* Project Info */}
                 <div className="p-6 lg:p-8 space-y-4 flex-1 flex flex-col">
-                  <h3 className="font-display font-bold text-xl lg:text-2xl group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
+                  <div className="flex flex-col gap-2">
+                    {project.featured && (
+                      <span className="text-xs font-body tracking-widest text-primary uppercase inline-block">
+                        Featured
+                      </span>
+                    )}
+                    <h3 className="font-display font-bold text-xl lg:text-2xl group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                  </div>
+                  
                   <p className="text-muted-foreground font-body leading-relaxed flex-1">
                     {project.description}
                   </p>
@@ -191,8 +180,8 @@ const Projects = () => {
                   </div>
                 </div>
               </motion.article>
-            ))}
-          </div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
