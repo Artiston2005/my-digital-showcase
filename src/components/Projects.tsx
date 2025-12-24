@@ -34,7 +34,7 @@ const projects = [
     image: portfolioImage,
     featured: false,
     links: [
-      { label: "Live Site", url: "my-digital-showcase-nine.vercel.app", icon: "external" },
+      { label: "Live Site", url: "https://my-digital-showcase-nine.vercel.app", icon: "external" },
     ],
   },
 ];
