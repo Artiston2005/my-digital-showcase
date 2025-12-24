@@ -1,9 +1,10 @@
-import { Github } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/ScrollReveal";
 import { StaggerContainer, StaggerItem } from "@/components/StaggerAnimation";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
 import quizGameImage from "@/assets/quiz-game.png";
+import portfolioImage from "@/assets/portfolio-screenshot.png";
 
 const projects = [
   {
@@ -12,8 +13,8 @@ const projects = [
     tags: ["Python", "Android Studio", "System Tray", "Automation"],
     image: gitkaWifiImage,
     links: [
-      { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi" },
-      { label: "Android", url: "https://github.com/Artiston2005/git-ka-wifi-android/releases" },
+      { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi", icon: "github" },
+      { label: "Android", url: "https://github.com/Artiston2005/git-ka-wifi-android/releases", icon: "github" },
     ],
   },
   {
@@ -22,7 +23,16 @@ const projects = [
     tags: ["Python", "Tkinter", "API", "GUI"],
     image: quizGameImage,
     links: [
-      { label: "GitHub", url: "https://github.com/Artiston2005/Quiz-Game-Project" },
+      { label: "GitHub", url: "https://github.com/Artiston2005/Quiz-Game-Project", icon: "github" },
+    ],
+  },
+  {
+    title: "Portfolio Website",
+    description: "A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS. Features smooth scroll animations, dark theme with coral accents, and a clean editorial design.",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    image: portfolioImage,
+    links: [
+      { label: "Live Site", url: "#", icon: "external" },
     ],
   },
 ];
@@ -64,7 +74,7 @@ const Projects = () => {
                     {project.links.map((link) => (
                       <Button key={link.label} variant="hero" size="sm" asChild>
                         <a href={link.url} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-4 h-4 mr-2" />
+                          {link.icon === "external" ? <ExternalLink className="w-4 h-4 mr-2" /> : <Github className="w-4 h-4 mr-2" />}
                           {link.label}
                         </a>
                       </Button>
@@ -101,7 +111,7 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-body"
                       >
-                        <Github className="w-4 h-4" />
+                        {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
                         {link.label}
                       </a>
                     ))}
