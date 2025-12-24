@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal";
+import profileImage from "@/assets/profile.jpg";
 
 const About = () => {
   return (
@@ -52,19 +53,19 @@ const About = () => {
             </ScrollReveal>
           </div>
           
-          {/* Visual Element */}
+          {/* Profile Image */}
           <ScrollReveal direction="right" delay={0.2}>
             <div className="relative">
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-card to-secondary border border-border overflow-hidden relative">
-                {/* Abstract decoration */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-3/4 h-3/4 rounded-full border border-primary/20" />
-                  <div className="absolute w-1/2 h-1/2 rounded-full border border-primary/30" />
-                  <div className="absolute w-1/4 h-1/4 rounded-full bg-primary/10" />
-                </div>
+              <div className="aspect-square rounded-2xl overflow-hidden relative border border-border">
+                <img 
+                  src={profileImage} 
+                  alt="Profile photo"
+                  className="w-full h-full object-cover"
+                />
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                 {/* Corner accent */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-2xl" />
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary/10 blur-xl" />
               </div>
               {/* Floating badge */}
               <div className="absolute -bottom-6 -left-6 bg-card border border-border rounded-xl p-6 shadow-lg">
