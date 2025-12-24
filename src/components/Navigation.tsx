@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -22,75 +23,140 @@ const Navigation = () => {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border"
-          : "bg-transparent"
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 py-3"
+          : "bg-transparent py-5"
       }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <nav className="max-w-6xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="font-display font-bold text-2xl gradient-text">
-          Ashwin Yadav
+        <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text">
+          Ashwin.
         </a>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <li key={item.label}>
+        <ul className="hidden md:flex items-center gap-1">
+          {navItems.map((item, index) => (
+            <motion.li 
+              key={item.label}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 * index }}
+            >
               <a
                 href={item.href}
-                className="font-body text-muted-foreground hover:text-foreground transition-colors relative group"
+                className="px-4 py-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
-            </li>
+            </motion.li>
           ))}
         </ul>
 
         {/* CTA Button */}
-        <Button variant="hero" size="sm" className="hidden md:flex" asChild>
-          <a href="#contact">Hire Me</a>
-        </Button>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
+          <Button variant="hero" size="sm" className="hidden md:flex" asChild>
+            <a href="#contact">Let's Talk</a>
+          </Button>
+        </motion.div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden p-2 text-foreground"
+          className="md:hidden p-2 text-foreground relative z-50"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <AnimatePresence mode="wait">
+            {isMobileMenuOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <X className="w-6 h-6" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="menu"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Menu className="w-6 h-6" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
       </nav>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border">
-          <ul className="px-6 py-8 space-y-6">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-body text-lg text-foreground hover:text-primary transition-colors block"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="md:hidden fixed inset-0 bg-background/98 backdrop-blur-xl z-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.ul 
+              className="h-full flex flex-col items-center justify-center gap-8"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={{
+                open: { transition: { staggerChildren: 0.1 } },
+                closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+              }}
+            >
+              {navItems.map((item) => (
+                <motion.li 
+                  key={item.label}
+                  variants={{
+                    open: { opacity: 1, y: 0 },
+                    closed: { opacity: 0, y: 20 }
+                  }}
                 >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-            <li className="pt-4">
-              <Button variant="hero" size="lg" className="w-full" asChild>
-                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  Hire Me
-                </a>
-              </Button>
-            </li>
-          </ul>
-        </div>
-      )}
-    </header>
+                  <a
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="font-display text-3xl font-bold text-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </motion.li>
+              ))}
+              <motion.li 
+                className="pt-4"
+                variants={{
+                  open: { opacity: 1, y: 0 },
+                  closed: { opacity: 0, y: 20 }
+                }}
+              >
+                <Button variant="hero" size="xl" asChild>
+                  <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    Let's Talk
+                  </a>
+                </Button>
+              </motion.li>
+            </motion.ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 
