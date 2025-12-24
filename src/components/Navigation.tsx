@@ -32,7 +32,7 @@ const Navigation = () => {
       <nav className="max-w-6xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="font-display font-bold text-2xl gradient-text">
-          Portfolio
+          Ashwin Yadav
         </a>
 
         {/* Desktop Navigation */}

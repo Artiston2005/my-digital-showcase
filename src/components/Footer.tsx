@@ -2,7 +2,7 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { icon: Github, href: "https://github.com/Artiston2005", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
 ];
@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Copyright */}
           <p className="text-muted-foreground font-body text-sm">
-            © {new Date().getFullYear()} Portfolio. All rights reserved.
+            © {new Date().getFullYear()} Ashwin Yadav. All rights reserved.
           </p>
 
           {/* Social Links */}
