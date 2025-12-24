@@ -82,7 +82,7 @@ const Contact = () => {
               className="space-y-4"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="section-label">Contact</p>
               <h2 className="section-title">
@@ -99,7 +99,7 @@ const Contact = () => {
               className="space-y-4 pt-4"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
               <a 
                 href="mailto:ashwinyadav2408@gmail.com"
@@ -121,7 +121,7 @@ const Contact = () => {
               className="hidden lg:block pt-8"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
             >
               <div className="w-full h-px bg-gradient-to-r from-border via-primary/30 to-transparent" />
               <p className="text-muted-foreground text-sm mt-4 font-body">
@@ -136,7 +136,7 @@ const Contact = () => {
             className="space-y-6 bg-card border border-border rounded-2xl p-6 lg:p-8"
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-body font-medium text-foreground">

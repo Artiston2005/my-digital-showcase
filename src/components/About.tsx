@@ -21,7 +21,7 @@ const About = () => {
             className="relative order-2 lg:order-1"
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="relative">
               {/* Main image container */}
@@ -44,7 +44,7 @@ const About = () => {
                 className="absolute -bottom-6 -right-6 glass border border-border/50 rounded-xl p-5 shadow-lg"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               >
                 <p className="font-display font-bold text-xl text-primary">Available</p>
                 <p className="text-muted-foreground text-sm">for opportunities</p>
@@ -58,7 +58,7 @@ const About = () => {
               className="space-y-4"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="section-label">About Me</p>
               <h2 className="section-title">
@@ -71,7 +71,7 @@ const About = () => {
               className="space-y-5 text-muted-foreground font-body text-lg leading-relaxed"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
               <p>
                 I'm Ashwin Yadav, a second year Computer Science & Engineering student 
@@ -90,7 +90,7 @@ const About = () => {
               className="grid grid-cols-3 gap-6 pt-6"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               {stats.map((stat, index) => (
                 <div 

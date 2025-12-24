@@ -45,6 +45,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
+      delayChildren: 0.3,
     },
   },
 };
@@ -54,7 +55,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -67,7 +68,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className="section-label">Portfolio</p>
           <h2 className="section-title">Featured Projects</h2>
