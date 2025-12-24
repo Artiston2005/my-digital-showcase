@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
+import { Github, Monitor, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ScrollReveal from "@/components/ScrollReveal";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
@@ -9,6 +9,8 @@ const projects = [
     description: "A system tray utility built with Python that automatically logs you into the GIT Jaipur captive Wi-Fi portal with dynamic block loader. Also available as an Android app developed in Android Studio.",
     tags: ["Python", "Android Studio", "System Tray", "Automation"],
     image: gitkaWifiImage,
+    windowsLink: "https://github.com/Artiston2005/git-ka-wifi",
+    androidLink: "https://github.com/Artiston2005/git-ka-wifi-android/releases",
   },
 ];
 
@@ -47,13 +49,17 @@ const Projects = () => {
                   />
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <Button variant="hero" size="sm">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
+                    <Button variant="hero" size="sm" asChild>
+                      <a href={project.windowsLink} target="_blank" rel="noopener noreferrer">
+                        <Monitor className="w-4 h-4 mr-2" />
+                        Windows
+                      </a>
                     </Button>
-                    <Button variant="heroOutline" size="sm">
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
+                    <Button variant="heroOutline" size="sm" asChild>
+                      <a href={project.androidLink} target="_blank" rel="noopener noreferrer">
+                        <Smartphone className="w-4 h-4 mr-2" />
+                        Android
+                      </a>
                     </Button>
                   </div>
                 </div>
@@ -66,7 +72,7 @@ const Projects = () => {
                   <p className="text-muted-foreground font-body leading-relaxed">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-2 pt-4">
                     {project.tags.map((tag) => (
                       <span 
                         key={tag}
@@ -75,6 +81,28 @@ const Projects = () => {
                         {tag}
                       </span>
                     ))}
+                  </div>
+                  
+                  {/* Links below card */}
+                  <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
+                    <a 
+                      href={project.windowsLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-body"
+                    >
+                      <Github className="w-4 h-4" />
+                      Windows Version
+                    </a>
+                    <a 
+                      href={project.androidLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-body"
+                    >
+                      <Github className="w-4 h-4" />
+                      Android App
+                    </a>
                   </div>
                 </div>
               </article>
