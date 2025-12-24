@@ -14,7 +14,7 @@ const About = () => {
                   About Me
                 </p>
                 <h2 className="font-display font-bold text-4xl lg:text-5xl tracking-tight">
-                  Passion for creating exceptional digital products
+                  Passionate about creating innovative solutions
                 </h2>
               </div>
             </ScrollReveal>
@@ -22,14 +22,14 @@ const About = () => {
             <ScrollReveal delay={0.1}>
               <div className="space-y-6 text-muted-foreground font-body text-lg leading-relaxed">
                 <p>
-                  I'm a developer and designer with over 5 years of experience building 
-                  modern web applications. I specialize in creating intuitive user interfaces 
-                  and robust backend systems.
+                  I'm Ashwin Yadav, a second year Computer Science & Engineering student 
+                  at GIT Jaipur. I love building software that solves real-world problems 
+                  and makes life easier for users.
                 </p>
                 <p>
-                  My approach combines clean code with thoughtful design, ensuring every 
-                  project not only works flawlessly but also provides an exceptional user 
-                  experience. I believe in the power of simplicity and attention to detail.
+                  From Python automation tools to Android apps, I enjoy exploring different 
+                  technologies and creating projects that have practical applications. 
+                  I believe in learning by doing and constantly challenging myself with new projects.
                 </p>
               </div>
             </ScrollReveal>
@@ -38,16 +38,16 @@ const About = () => {
             <ScrollReveal delay={0.2}>
               <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border">
                 <div>
-                  <p className="font-display font-bold text-4xl gradient-text">5+</p>
-                  <p className="text-muted-foreground text-sm mt-1">Years Experience</p>
+                  <p className="font-display font-bold text-4xl gradient-text">2nd</p>
+                  <p className="text-muted-foreground text-sm mt-1">Year CSE</p>
                 </div>
                 <div>
-                  <p className="font-display font-bold text-4xl gradient-text">50+</p>
-                  <p className="text-muted-foreground text-sm mt-1">Projects Done</p>
+                  <p className="font-display font-bold text-4xl gradient-text">3+</p>
+                  <p className="text-muted-foreground text-sm mt-1">Projects</p>
                 </div>
                 <div>
-                  <p className="font-display font-bold text-4xl gradient-text">30+</p>
-                  <p className="text-muted-foreground text-sm mt-1">Happy Clients</p>
+                  <p className="font-display font-bold text-4xl gradient-text">GIT</p>
+                  <p className="text-muted-foreground text-sm mt-1">Jaipur</p>
                 </div>
               </div>
             </ScrollReveal>

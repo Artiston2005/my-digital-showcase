@@ -36,9 +36,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <span className="gradient-text">Creative</span>
+            <span className="gradient-text">Ashwin</span>
             <br />
-            Developer
+            Yadav
           </motion.h1>
           
           {/* Tagline */}
@@ -48,8 +48,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            I craft digital experiences that blend aesthetics with functionality. 
-            Turning ideas into elegant, performant web applications.
+            Second year Computer Science & Engineering student at GIT Jaipur. 
+            Passionate about building innovative software solutions.
           </motion.p>
           
           {/* CTA Buttons */}
