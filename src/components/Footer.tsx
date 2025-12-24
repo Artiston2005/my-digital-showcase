@@ -3,8 +3,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/Artiston2005", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/ashwin-yadav-1704a1248", label: "LinkedIn" },
 ];
 
 const Footer = () => {

@@ -50,7 +50,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-body font-medium">hello@example.com</p>
+                    <p className="font-body font-medium">ashwinyadav2408@gmail.com</p>
                   </div>
                 </div>
                 
