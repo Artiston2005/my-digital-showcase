@@ -1,9 +1,10 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Instagram } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/Artiston2005", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/ashwin-yadav-1704a1248", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/theenthusiast_24/", label: "Instagram" },
 ];
 
 const Footer = () => {
