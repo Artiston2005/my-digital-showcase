@@ -69,19 +69,34 @@
 @layer base {
   * {
     @apply border-border;
+    -webkit-tap-highlight-color: transparent;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground font-body antialiased;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+  }
+
+  /* Improve touch targets on mobile */
+  a, button {
+    touch-action: manipulation;
+  }
+
+  /* Prevent text selection on interactive elements */
+  button, [role="button"] {
+    user-select: none;
   }
 
   ::selection {
