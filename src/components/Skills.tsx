@@ -2,10 +2,10 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { StaggerContainer, StaggerItem } from "@/components/StaggerAnimation";
 
 const skills = [
-  { category: "Frontend", items: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"] },
-  { category: "Backend", items: ["Node.js", "Python", "PostgreSQL", "GraphQL", "REST APIs"] },
-  { category: "Tools", items: ["Git", "Docker", "AWS", "Figma", "VS Code"] },
-  { category: "Soft Skills", items: ["Problem Solving", "Communication", "Team Lead", "Agile", "Mentoring"] },
+  { category: "Languages", items: ["Python", "Kotlin", "JavaScript", "TypeScript", "C/C++", "Java"] },
+  { category: "Web & Mobile", items: ["React", "HTML/CSS", "Tailwind CSS", "Android Development", "REST APIs"] },
+  { category: "Tools", items: ["Git", "GitHub", "VS Code", "Android Studio", "Tkinter"] },
+  { category: "Core Skills", items: ["Problem Solving", "Data Structures", "Algorithms", "OOP", "Team Collaboration"] },
 ];
 
 const Skills = () => {
