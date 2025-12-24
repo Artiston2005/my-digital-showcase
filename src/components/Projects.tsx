@@ -1,7 +1,6 @@
 import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
 import quizGameImage from "@/assets/quiz-game.png";
 import portfolioImage from "@/assets/portfolio-screenshot.png";
@@ -40,18 +39,35 @@ const projects = [
   },
 ];
 
-const Projects = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const Projects = () => {
   return (
-    <section id="projects" className="section-padding bg-card/30" ref={ref}>
+    <section id="projects" className="section-padding bg-card/30">
       <div className="max-container">
         <motion.div 
           className="text-center mb-16 space-y-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
         >
           <p className="section-label">Portfolio</p>
           <h2 className="section-title">Featured Projects</h2>
@@ -61,120 +77,122 @@ const Projects = () => {
           </p>
         </motion.div>
         
-        {/* Featured Project */}
         <motion.div
-          className="mb-12"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <article className="group relative bg-card border border-border rounded-3xl overflow-hidden card-hover">
-            <div className="grid lg:grid-cols-2 gap-0">
-              {/* Image */}
-              <div className="aspect-video lg:aspect-auto lg:h-full bg-secondary relative overflow-hidden">
-                <img 
-                  src={projects[0].image} 
-                  alt={projects[0].title}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/20" />
-              </div>
-              
-              {/* Content */}
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <span className="text-xs font-body tracking-widest text-primary uppercase mb-4">Featured Project</span>
-                <h3 className="font-display font-bold text-3xl lg:text-4xl mb-4 group-hover:text-primary transition-colors">
-                  {projects[0].title}
-                </h3>
-                <p className="text-muted-foreground font-body text-lg leading-relaxed mb-6">
-                  {projects[0].description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {projects[0].tags.map((tag) => (
-                    <span key={tag} className="skill-tag">{tag}</span>
-                  ))}
+          {/* Featured Project */}
+          <motion.div className="mb-12" variants={itemVariants}>
+            <article className="group relative bg-card border border-border rounded-3xl overflow-hidden card-hover">
+              <div className="grid lg:grid-cols-2 gap-0">
+                {/* Image */}
+                <div className="aspect-video lg:aspect-auto lg:h-full bg-secondary relative overflow-hidden">
+                  <img 
+                    src={projects[0].image} 
+                    alt={projects[0].title}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/20" />
                 </div>
                 
-                <div className="flex flex-wrap gap-3">
-                  {projects[0].links.map((link) => (
-                    <Button key={link.label} variant="hero" size="default" asChild>
-                      <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
+                {/* Content */}
+                <div className="p-8 lg:p-12 flex flex-col justify-center">
+                  <span className="text-xs font-body tracking-widest text-primary uppercase mb-4">Featured Project</span>
+                  <h3 className="font-display font-bold text-3xl lg:text-4xl mb-4 group-hover:text-primary transition-colors">
+                    {projects[0].title}
+                  </h3>
+                  <p className="text-muted-foreground font-body text-lg leading-relaxed mb-6">
+                    {projects[0].description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {projects[0].tags.map((tag) => (
+                      <span key={tag} className="skill-tag">{tag}</span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-3">
+                    {projects[0].links.map((link) => (
+                      <Button key={link.label} variant="hero" size="default" asChild>
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
+                          {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
+                          {link.label}
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </motion.div>
+          
+          {/* Other Projects Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.slice(1).map((project) => (
+              <motion.article 
+                key={project.title}
+                variants={itemVariants}
+                className="group relative bg-card border border-border rounded-2xl overflow-hidden card-hover h-full flex flex-col"
+              >
+                {/* Project Image */}
+                <div className="aspect-video bg-secondary relative overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-sm">
+                    {project.links.map((link) => (
+                      <Button key={link.label} variant="hero" size="sm" asChild>
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
+                          {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
+                          {link.label}
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Project Info */}
+                <div className="p-6 lg:p-8 space-y-4 flex-1 flex flex-col">
+                  <h3 className="font-display font-bold text-xl lg:text-2xl group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-muted-foreground font-body leading-relaxed flex-1">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="skill-tag text-xs">{tag}</span>
+                    ))}
+                  </div>
+                  
+                  {/* Links */}
+                  <div className="flex items-center gap-4 pt-4 border-t border-border">
+                    {project.links.map((link) => (
+                      <a 
+                        key={link.label}
+                        href={link.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-body group/link"
+                      >
                         {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
                         {link.label}
+                        <ArrowUpRight className="w-3 h-3 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                       </a>
-                    </Button>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </article>
+              </motion.article>
+            ))}
+          </div>
         </motion.div>
-        
-        {/* Other Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.slice(1).map((project, index) => (
-            <motion.article 
-              key={project.title}
-              className="group relative bg-card border border-border rounded-2xl overflow-hidden card-hover h-full flex flex-col"
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Project Image */}
-              <div className="aspect-video bg-secondary relative overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4">
-                  {project.links.map((link) => (
-                    <Button key={link.label} variant="hero" size="sm" asChild>
-                      <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
-                        {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
-                        {link.label}
-                      </a>
-                    </Button>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Project Info */}
-              <div className="p-6 lg:p-8 space-y-4 flex-1 flex flex-col">
-                <h3 className="font-display font-bold text-xl lg:text-2xl group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground font-body leading-relaxed flex-1">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="skill-tag text-xs">{tag}</span>
-                  ))}
-                </div>
-                
-                {/* Links */}
-                <div className="flex items-center gap-4 pt-4 border-t border-border">
-                  {project.links.map((link) => (
-                    <a 
-                      key={link.label}
-                      href={link.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-body group/link"
-                    >
-                      {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
-                      {link.label}
-                      <ArrowUpRight className="w-3 h-3 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </div>
       </div>
     </section>
   );
