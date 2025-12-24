@@ -60,7 +60,7 @@ const About = () => {
                 <img 
                   src={profileImage} 
                   alt="Profile photo"
-                  className="w-full h-full object-cover"
+                  className="w-[110%] h-[110%] object-cover object-top -mb-[10%]"
                 />
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
