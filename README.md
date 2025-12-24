@@ -2,7 +2,8 @@
 
 A modern, immersive portfolio website built to showcase my projects, skills, and experience as a Computer Science student at GIT Jaipur.
 
-![Portfolio Preview](src/assets/portfolio-screenshot.png)
+![Ashwin Yadav Portfolio Preview](https://github.com/user-attachments/assets/dd815656-fe5a-43cc-bc49-43d3bb60f06f)
+
 
 ## 🚀 Tech Stack
 
