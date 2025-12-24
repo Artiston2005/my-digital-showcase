@@ -9,8 +9,8 @@ import portfolioImage from "@/assets/portfolio-screenshot.png";
 const projects = [
   {
     title: "Git Ka Wifi",
-    description: "A system tray utility built with Python that automatically logs you into the GIT Jaipur captive Wi-Fi portal with dynamic block loader. Also available as an Android app developed in Android Studio.",
-    tags: ["Python", "Android Studio", "System Tray", "Automation"],
+    description: "A system tray utility built with Python that automatically logs you into the GIT Jaipur captive Wi-Fi portal with dynamic block loader. Also available as an Android app developed in Kotlin.",
+    tags: ["Python", "Kotlin", "Android", "System Tray", "Automation"],
     image: gitkaWifiImage,
     links: [
       { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi", icon: "github" },
