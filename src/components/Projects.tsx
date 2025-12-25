@@ -107,6 +107,7 @@ const Projects = () => {
                           src={project.image} 
                           alt=""
                           className="w-full h-full object-cover opacity-40 blur-xl scale-110"
+                          decoding="async"
                         />
                       </div>
                       {/* Main Image (Contained) */}
@@ -114,6 +115,7 @@ const Projects = () => {
                         src={project.image} 
                         alt={project.title}
                         loading="lazy"
+                        decoding="async"
                         className="relative w-full h-full object-contain p-2 z-10 transition-transform duration-700 group-hover:scale-105"
                       />
                     </>
@@ -123,6 +125,7 @@ const Projects = () => {
                       src={project.image} 
                       alt={project.title}
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     />
                   )}
