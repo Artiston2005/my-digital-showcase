@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeSelector from "./ThemeSelector";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -17,7 +18,6 @@ const Navigation = () => {
 
   useEffect(() => {
     let ticking = false;
-
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
@@ -27,7 +27,6 @@ const Navigation = () => {
         ticking = true;
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -44,101 +43,105 @@ const Navigation = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text">
-          Ashwin.
+        {/* Updated Logo */}
+        <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text relative z-50">
+          Ashwin Yadav.
         </a>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-1">
-          {navItems.map((item, index) => (
-            <motion.li 
-              key={item.label}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 * index }}
-            >
-              <a
-                href={item.href}
-                className="px-4 py-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
+        <div className="hidden md:flex items-center gap-6">
+          <ul className="flex items-center gap-1">
+            {navItems.map((item, index) => (
+              <motion.li 
+                key={item.label}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 * index }}
               >
-                {item.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-              </a>
-            </motion.li>
-          ))}
-        </ul>
+                <a
+                  href={item.href}
+                  className="px-4 py-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </motion.li>
+            ))}
+          </ul>
+          
+          {/* Theme Selector */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <ThemeSelector />
+          </motion.div>
 
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-        >
-          <Button variant="hero" size="sm" className="hidden md:flex" asChild>
-            <a href="#contact">Let's Talk</a>
-          </Button>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+          >
+            <Button variant="hero" size="sm" asChild>
+              <a href="#contact">Let's Talk</a>
+            </Button>
+          </motion.div>
+        </div>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden p-2 text-foreground relative z-50"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <AnimatePresence mode="wait">
-            {isMobileMenuOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <X className="w-6 h-6" />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Menu className="w-6 h-6" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
+        {/* Mobile Controls */}
+        <div className="flex items-center gap-4 md:hidden relative z-50">
+          <ThemeSelector />
+          
+          <button
+            className="p-2 text-foreground"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {isMobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-6 h-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-6 h-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-md z-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            className="md:hidden fixed inset-0 bg-background/98 backdrop-blur-xl z-40 flex flex-col justify-center items-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <motion.ul 
-              className="h-full flex flex-col items-center justify-center gap-8"
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={{
-                open: { transition: { staggerChildren: 0.1 } },
-                closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
-              }}
-            >
-              {navItems.map((item) => (
+            <ul className="flex flex-col items-center gap-8">
+              {navItems.map((item, i) => (
                 <motion.li 
                   key={item.label}
-                  variants={{
-                    open: { opacity: 1, y: 0 },
-                    closed: { opacity: 0, y: 20 }
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.1 }}
                 >
                   <a
                     href={item.href}
@@ -149,12 +152,11 @@ const Navigation = () => {
                   </a>
                 </motion.li>
               ))}
-              <motion.li 
+              <motion.li
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + navItems.length * 0.1 }}
                 className="pt-4"
-                variants={{
-                  open: { opacity: 1, y: 0 },
-                  closed: { opacity: 0, y: 20 }
-                }}
               >
                 <Button variant="hero" size="xl" asChild>
                   <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
@@ -162,7 +164,7 @@ const Navigation = () => {
                   </a>
                 </Button>
               </motion.li>
-            </motion.ul>
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>

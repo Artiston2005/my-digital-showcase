@@ -69,13 +69,14 @@ const Skills = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {skills.map((skill) => {
+          {skills.map((skill, index) => {
             const Icon = skill.icon;
             return (
               <motion.div 
                 key={skill.category}
                 variants={itemVariants}
-                className="group p-6 lg:p-8 bg-card border border-border rounded-2xl card-hover h-full"
+                className="group p-6 lg:p-8 bg-card border border-border rounded-2xl h-full transition-colors hover:border-primary/30"
+                whileHover={{ y: -5 }}
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                   <Icon className="w-6 h-6 text-primary" />
@@ -87,13 +88,14 @@ const Skills = () => {
                 
                 <ul className="space-y-3">
                   {skill.items.map((item) => (
-                    <li 
+                    <motion.li 
                       key={item}
-                      className="text-muted-foreground font-body flex items-center gap-3 text-sm"
+                      className="text-muted-foreground font-body flex items-center gap-3 text-sm cursor-default"
+                      whileHover={{ x: 5, color: "hsl(var(--foreground))" }}
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                       {item}
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </motion.div>

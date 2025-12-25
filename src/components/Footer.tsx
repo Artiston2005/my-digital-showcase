@@ -27,7 +27,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="flex flex-col items-center md:items-start gap-2">
-            <span className="font-display font-bold text-xl gradient-text">Ashwin.</span>
+            <span className="font-display font-bold text-xl gradient-text">Ashwin Yadav.</span>
             <p className="text-muted-foreground font-body text-sm">
               © {new Date().getFullYear()} All rights reserved.
             </p>

@@ -21,32 +21,55 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  // Only apply parallax effects on desktop
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "100%"]);
 
+  // Staggered text animation for name
+  const nameVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const charVariants = {
+    hidden: { opacity: 0, y: 20, rotateX: 90 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: { type: "spring", damping: 12, stiffness: 100 },
+    },
+  };
+
   return (
     <section ref={ref} className="min-h-screen flex flex-col justify-center relative overflow-hidden px-6 lg:px-12">
-      {/* Animated background elements with Parallax */}
+      {/* Morphing Background Elements */}
       <motion.div 
         className="absolute inset-0 overflow-hidden pointer-events-none"
         style={{ y: backgroundY }}
       >
         <motion.div 
-          className="absolute top-20 -left-40 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[100px] hardware-accelerated"
+          className="absolute top-20 -left-40 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] hardware-accelerated"
           animate={{ 
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+            borderRadius: ["50%", "40% 60% 70% 30% / 40% 50% 60% 50%", "50%"],
           }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute bottom-20 -right-40 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[80px] hardware-accelerated"
+          className="absolute bottom-20 -right-40 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px] hardware-accelerated"
           animate={{ 
-            y: [0, 30, 0],
-            scale: [1, 1.15, 1],
+            y: [0, 50, 0],
+            scale: [1, 1.3, 1],
+            borderRadius: ["50%", "60% 40% 30% 70% / 60% 30% 70% 40%", "50%"],
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
       </motion.div>
 
@@ -68,16 +91,27 @@ const Hero = () => {
             </p>
           </motion.div>
           
-          {/* Name */}
+          {/* Name with Staggered Character Reveal */}
           <motion.h1 
             className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl xl:text-[9rem] tracking-tight leading-[0.9]"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100, damping: 20 }}
+            variants={nameVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <span className="gradient-text-hero">Ashwin</span>
-            <br />
-            <span className="text-foreground">Yadav</span>
+            <span className="block gradient-text-hero">
+              {Array.from("Ashwin").map((char, i) => (
+                <motion.span key={i} variants={charVariants} className="inline-block origin-bottom">
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+            <span className="block text-foreground">
+              {Array.from("Yadav").map((char, i) => (
+                <motion.span key={i} variants={charVariants} className="inline-block origin-bottom">
+                  {char}
+                </motion.span>
+              ))}
+            </span>
           </motion.h1>
           
           {/* Tagline */}
@@ -85,7 +119,7 @@ const Hero = () => {
             className="text-muted-foreground font-body text-xl lg:text-2xl max-w-2xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
           >
             Second year <span className="text-foreground">Computer Science & Engineering</span> student 
             at GIT Jaipur. Building innovative software solutions that make a difference.
@@ -96,7 +130,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row sm:items-center gap-6 pt-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
           >
             <div className="flex flex-wrap gap-4">
               <Button variant="hero" size="xl" asChild className="hover-lift">
@@ -109,22 +143,22 @@ const Hero = () => {
             
             {/* Social Links */}
             <div className="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-border">
-              <a 
-                href="https://github.com/Artiston2005" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/ashwin-yadav-1704a1248" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
+              {[
+                { Icon: Github, href: "https://github.com/Artiston2005" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/in/ashwin-yadav-1704a1248" }
+              ].map(({ Icon, href }, index) => (
+                <motion.a 
+                  key={href}
+                  href={href} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Icon className="w-5 h-5" />
+                </motion.a>
+              ))}
             </div>
           </motion.div>
         </motion.div>
