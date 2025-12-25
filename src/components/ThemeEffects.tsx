@@ -40,10 +40,10 @@ const ThemeEffects = () => {
 
   if (!mounted) return null;
 
-  // --- CHRISTMAS EFFECT (Optimized: Fewer flakes, background only) ---
+  // --- CHRISTMAS EFFECT (Visible Background Snow) ---
   if (theme === "christmas") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
         {[...Array(40)].map((_, i) => (
           <motion.div
             key={`snow-${i}`}
@@ -58,7 +58,7 @@ const ThemeEffects = () => {
               x: Math.random() * windowSize.width + (Math.random() - 0.5) * 50,
             }}
             transition={{
-              duration: Math.random() * 10 + 10, // Slower, smoother
+              duration: Math.random() * 10 + 10,
               repeat: Infinity,
               ease: "linear",
               delay: Math.random() * 10,
@@ -78,15 +78,15 @@ const ThemeEffects = () => {
     const colors = ["#FFD700", "#FF00FF", "#00FFFF", "#FF3333", "#33FF33"];
     
     return (
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden flex items-center justify-center">
+      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden flex items-center justify-center">
         
-        {/* 1. Background Watermark (Static, low opacity for performance) */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none z-[-1]">
+        {/* 1. Background Watermark (Static, low opacity) */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none z-[0]">
           <div className="flex flex-col items-center">
             <h1 className="font-display font-black text-[12vw] leading-none text-foreground">
               HAPPY
             </h1>
-            <h1 className="font-display font-black text-[25vw] leading-[0.8] text-foreground blur-[1px]">
+            <h1 className="font-display font-black text-[25vw] leading-[0.8] text-foreground">
               2026
             </h1>
           </div>
@@ -134,7 +134,7 @@ const ThemeEffects = () => {
           </div>
         )}
 
-        {/* 3. Falling Confetti (Reduced count for performance) */}
+        {/* 3. Falling Confetti (Reduced count) */}
         <div className="absolute inset-0 z-0">
           {[...Array(30)].map((_, i) => (
             <motion.div
@@ -172,7 +172,7 @@ const ThemeEffects = () => {
   // --- DIWALI EFFECT (Optimized) ---
   if (theme === "diwali") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
         {[...Array(5)].map((_, i) => (
           <motion.div
             key={`firework-${i}`}
@@ -218,11 +218,10 @@ const ThemeEffects = () => {
     );
   }
 
-  // --- HOLI EFFECT (Reduced Blur usage) ---
+  // --- HOLI EFFECT (Reduced Blur) ---
   if (theme === "holi") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        {/* Using opacity instead of heavy blur filters for performance */}
+      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
         <motion.div
           className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-pink-500/10 rounded-full mix-blend-multiply"
           animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0] }}
