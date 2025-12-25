@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "default" | "diwali" | "christmas" | "holi";
+type Theme = "default" | "diwali" | "christmas" | "holi" | "newyear";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -24,13 +24,19 @@ const getAutomaticTheme = (): Theme => {
     return "christmas";
   }
 
-  // Holi (Approx March for demo - update yearly)
+  // New Year (Dec 28 - Jan 5)
+  if ((month === 11 && date >= 28) || (month === 0 && date <= 5)) {
+    return "newyear";
+  }
+
+  // Holi (Approx March 10-20 for 2025 - Update yearly)
   if (month === 2 && date >= 10 && date <= 20) {
     return "holi";
   }
 
-  // Diwali (Approx Oct/Nov for demo - update yearly)
-  if ((month === 9 && date >= 15) || (month === 10 && date <= 15)) {
+  // Diwali (Approx Oct/Nov - Update yearly)
+  // For 2025, Diwali is around Oct 20
+  if (month === 9 && date >= 15 && date <= 25) {
     return "diwali";
   }
 

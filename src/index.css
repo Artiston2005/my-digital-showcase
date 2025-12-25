@@ -50,33 +50,37 @@
     --shadow-glow: 0 0 80px rgba(255, 255, 255, 0.2);
   }
 
+  /* New Year Theme (Midnight Celebration) */
+  [data-theme='newyear'] {
+    --background: 260 20% 5%; /* Deep Midnight Purple */
+    --foreground: 280 20% 98%;
+    --primary: 320 80% 60%; /* Electric Magenta */
+    --primary-foreground: 260 20% 5%;
+    --secondary: 260 30% 15%;
+    --muted: 260 20% 20%;
+    --border: 260 30% 25%;
+    --gradient-primary: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%); /* Electric Blue */
+    --gradient-hero: linear-gradient(135deg, #FF00CC 0%, #333399 100%); /* Vaporwave vibe */
+    --shadow-glow: 0 0 80px rgba(0, 198, 255, 0.3);
+  }
+
   /* Holi Theme (Bright & Colorful) */
   [data-theme='holi'] {
-    --background: 260 10% 95%; /* Light Mode base for colors to pop */
-    --foreground: 260 10% 10%;
+    --background: 260 20% 10%; 
+    --foreground: 260 10% 95%;
     --primary: 320 90% 55%; /* Magenta */
     --primary-foreground: 260 10% 98%;
     --secondary: 190 30% 90%;
     --muted: 260 10% 80%;
-    --border: 260 10% 85%;
-    --card: 0 0% 100%; /* White cards */
+    --border: 260 20% 25%;
+    --card: 260 20% 13%;
     --gradient-primary: linear-gradient(135deg, #E91E63 0%, #FFEB3B 100%);
     --gradient-hero: linear-gradient(135deg, #9C27B0 0%, #E91E63 33%, #FFEB3B 66%, #00BCD4 100%);
     --shadow-glow: 0 0 100px rgba(233, 30, 99, 0.3);
   }
-  
-  /* Override Dark mode for Holi if system prefers dark, but we want Holi to be bright/colorful? 
-     Actually, let's keep Holi dark-mode friendly but colorful: */
-  [data-theme='holi'] {
-    --background: 260 20% 10%; 
-    --foreground: 260 10% 95%;
-    --card: 260 20% 13%;
-    --border: 260 20% 25%;
-  }
 }
 
 @layer base {
-  /* ... (Rest of base styles same as before) ... */
   * {
     @apply border-border;
     -webkit-tap-highlight-color: transparent;
@@ -88,7 +92,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body antialiased transition-colors duration-700; /* Slower transition for theme changes */
+    @apply bg-background text-foreground font-body antialiased transition-colors duration-700;
     font-family: var(--font-body);
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -96,7 +100,6 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
   
-  /* ... Scrollbars & Selection ... */
   ::selection {
     background-color: hsl(var(--primary) / 0.3);
     color: hsl(var(--primary));

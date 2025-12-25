@@ -48,7 +48,8 @@ const Hero = () => {
 
   return (
     <section ref={ref} className="min-h-screen flex flex-col justify-center relative overflow-hidden px-6 lg:px-12">
-      {/* Morphing Background Elements */}
+      
+      {/* --- BACKGROUND LAYERS --- */}
       <motion.div 
         className="absolute inset-0 overflow-hidden pointer-events-none"
         style={{ y: backgroundY }}
@@ -73,12 +74,9 @@ const Hero = () => {
         />
       </motion.div>
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:80px_80px] opacity-30" />
-      
+      {/* --- MAIN CONTENT --- */}
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <motion.div className="space-y-10" style={{ y: textY }}>
-          {/* Greeting */}
           <motion.div 
             className="flex items-center gap-3"
             initial={{ opacity: 0, x: -20 }}
@@ -91,7 +89,6 @@ const Hero = () => {
             </p>
           </motion.div>
           
-          {/* Name with Staggered Character Reveal */}
           <motion.h1 
             className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl xl:text-[9rem] tracking-tight leading-[0.9]"
             variants={nameVariants}
@@ -114,7 +111,6 @@ const Hero = () => {
             </span>
           </motion.h1>
           
-          {/* Tagline */}
           <motion.p 
             className="text-muted-foreground font-body text-xl lg:text-2xl max-w-2xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
@@ -125,7 +121,6 @@ const Hero = () => {
             at GIT Jaipur. Building innovative software solutions that make a difference.
           </motion.p>
           
-          {/* CTA Buttons & Socials */}
           <motion.div 
             className="flex flex-col sm:flex-row sm:items-center gap-6 pt-4"
             initial={{ opacity: 0, y: 20 }}
@@ -141,7 +136,6 @@ const Hero = () => {
               </Button>
             </div>
             
-            {/* Social Links */}
             <div className="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-border">
               {[
                 { Icon: Github, href: "https://github.com/Artiston2005" },

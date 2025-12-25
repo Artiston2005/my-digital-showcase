@@ -1,4 +1,4 @@
-import { Moon, Sun, Flame, Snowflake } from "lucide-react";
+import { Moon, Sun, Flame, Snowflake, PartyPopper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,6 +16,7 @@ const ThemeSelector = () => {
       case "diwali": return <Flame className="h-5 w-5 text-orange-500 transition-all" />;
       case "christmas": return <Snowflake className="h-5 w-5 text-red-500 transition-all" />;
       case "holi": return <Sun className="h-5 w-5 text-pink-500 transition-all" />;
+      case "newyear": return <PartyPopper className="h-5 w-5 text-purple-500 transition-all" />;
       default: return <Moon className="h-5 w-5 transition-all" />;
     }
   };
@@ -37,6 +38,9 @@ const ThemeSelector = () => {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("christmas")} className="cursor-pointer gap-2 focus:bg-red-500/10 focus:text-red-500">
           <Snowflake className="h-4 w-4 text-red-500" /> Christmas
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("newyear")} className="cursor-pointer gap-2 focus:bg-purple-500/10 focus:text-purple-500">
+          <PartyPopper className="h-4 w-4 text-purple-500" /> New Year
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("holi")} className="cursor-pointer gap-2 focus:bg-pink-500/10 focus:text-pink-500">
           <Sun className="h-4 w-4 text-pink-500" /> Holi
