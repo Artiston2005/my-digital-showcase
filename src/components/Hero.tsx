@@ -24,7 +24,6 @@ const Hero = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "100%"]);
 
-  // Staggered text animation for name
   const nameVariants = {
     hidden: { opacity: 0 },
     visible: {

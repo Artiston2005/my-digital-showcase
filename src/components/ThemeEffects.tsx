@@ -40,14 +40,14 @@ const ThemeEffects = () => {
 
   if (!mounted) return null;
 
-  // --- CHRISTMAS EFFECT (Just Snow) ---
+  // --- CHRISTMAS EFFECT (Optimized: Fewer flakes, background only) ---
   if (theme === "christmas") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
-        {[...Array(75)].map((_, i) => (
+      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        {[...Array(40)].map((_, i) => (
           <motion.div
             key={`snow-${i}`}
-            className="absolute bg-white rounded-full opacity-70"
+            className="absolute bg-white rounded-full opacity-60"
             initial={{
               x: Math.random() * windowSize.width,
               y: -10,
@@ -55,17 +55,17 @@ const ThemeEffects = () => {
             }}
             animate={{
               y: windowSize.height + 10,
-              x: Math.random() * windowSize.width + (Math.random() - 0.5) * 100,
+              x: Math.random() * windowSize.width + (Math.random() - 0.5) * 50,
             }}
             transition={{
-              duration: Math.random() * 5 + 5,
+              duration: Math.random() * 10 + 10, // Slower, smoother
               repeat: Infinity,
               ease: "linear",
-              delay: Math.random() * 5,
+              delay: Math.random() * 10,
             }}
             style={{
-              width: Math.random() * 4 + 2 + "px",
-              height: Math.random() * 4 + 2 + "px",
+              width: Math.random() * 3 + 2 + "px",
+              height: Math.random() * 3 + 2 + "px",
             }}
           />
         ))}
@@ -73,17 +73,29 @@ const ThemeEffects = () => {
     );
   }
 
-  // --- NEW YEAR EFFECT ---
+  // --- NEW YEAR EFFECT (Optimized) ---
   if (theme === "newyear") {
     const colors = ["#FFD700", "#FF00FF", "#00FFFF", "#FF3333", "#33FF33"];
     
     return (
-      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden flex items-center justify-center">
+      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden flex items-center justify-center">
         
-        {/* 1. Fireworks (Launch after 2.5s) */}
+        {/* 1. Background Watermark (Static, low opacity for performance) */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none z-[-1]">
+          <div className="flex flex-col items-center">
+            <h1 className="font-display font-black text-[12vw] leading-none text-foreground">
+              HAPPY
+            </h1>
+            <h1 className="font-display font-black text-[25vw] leading-[0.8] text-foreground blur-[1px]">
+              2026
+            </h1>
+          </div>
+        </div>
+
+        {/* 2. Fireworks (Simple burst, low particle count) */}
         {showNewYearFireworks && (
           <div className="absolute inset-0 z-0">
-            {[...Array(6)].map((_, i) => (
+            {[...Array(4)].map((_, i) => (
               <motion.div
                 key={`ny-firework-${i}`}
                 className="absolute"
@@ -95,7 +107,7 @@ const ThemeEffects = () => {
                 animate={{
                   y: [windowSize.height, windowSize.height * (0.2 + Math.random() * 0.5)],
                   opacity: [1, 1, 0],
-                  scale: [0, 1, 3], 
+                  scale: [0, 1, 2.5], 
                 }}
                 transition={{
                   duration: 2.5,
@@ -104,16 +116,15 @@ const ThemeEffects = () => {
                   ease: "easeOut",
                 }}
               >
-                {/* Neon Burst Particles */}
                 <div className="relative w-4 h-4">
-                  {[...Array(16)].map((_, j) => (
+                  {[...Array(12)].map((_, j) => (
                     <div
                       key={j}
-                      className="absolute top-0 left-0 w-1.5 h-4 rounded-full"
+                      className="absolute top-0 left-0 w-1 h-3 rounded-full"
                       style={{
                         backgroundColor: colors[j % colors.length],
-                        transform: `rotate(${j * 22.5}deg) translateY(-40px)`,
-                        boxShadow: `0 0 10px ${colors[j % colors.length]}`,
+                        transform: `rotate(${j * 30}deg) translateY(-30px)`,
+                        boxShadow: `0 0 5px ${colors[j % colors.length]}`,
                       }}
                     />
                   ))}
@@ -123,36 +134,19 @@ const ThemeEffects = () => {
           </div>
         )}
 
-        {/* 2. Background 2026 Text (Subtle Watermark) */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10 select-none z-10">
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
-            className="flex flex-col items-center"
-          >
-            <h1 className="font-display font-black text-[12vw] leading-none text-foreground">
-              HAPPY
-            </h1>
-            <h1 className="font-display font-black text-[25vw] leading-[0.8] text-foreground blur-[2px]">
-              2026
-            </h1>
-          </motion.div>
-        </div>
-
-        {/* 3. Falling Confetti (Continuous gentle rain) */}
-        <div className="absolute inset-0 z-20">
-          {[...Array(60)].map((_, i) => (
+        {/* 3. Falling Confetti (Reduced count for performance) */}
+        <div className="absolute inset-0 z-0">
+          {[...Array(30)].map((_, i) => (
             <motion.div
               key={`confetti-fall-${i}`}
               className="absolute"
               initial={{
                 x: Math.random() * windowSize.width,
-                y: -50,
+                y: -20,
                 rotate: Math.random() * 360,
               }}
               animate={{
-                y: windowSize.height + 100,
+                y: windowSize.height + 50,
                 rotate: Math.random() * 720,
               }}
               transition={{
@@ -162,10 +156,11 @@ const ThemeEffects = () => {
                 delay: Math.random() * 5,
               }}
               style={{
-                width: Math.random() * 8 + 4 + "px",
-                height: Math.random() * 8 + 4 + "px",
+                width: Math.random() * 6 + 4 + "px",
+                height: Math.random() * 6 + 4 + "px",
                 backgroundColor: colors[Math.floor(Math.random() * colors.length)],
                 borderRadius: Math.random() > 0.5 ? "50%" : "0%",
+                opacity: 0.8,
               }}
             />
           ))}
@@ -174,11 +169,11 @@ const ThemeEffects = () => {
     );
   }
 
-  // --- DIWALI EFFECT ---
+  // --- DIWALI EFFECT (Optimized) ---
   if (theme === "diwali") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
-        {[...Array(8)].map((_, i) => (
+      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        {[...Array(5)].map((_, i) => (
           <motion.div
             key={`firework-${i}`}
             className="absolute"
@@ -213,33 +208,34 @@ const ThemeEffects = () => {
             </div>
           </motion.div>
         ))}
-        <div className="absolute top-0 left-4 md:left-10 animate-pulse origin-top z-10">
+        <div className="absolute top-0 left-4 md:left-10 animate-pulse origin-top z-0">
            <DiyaIcon className="w-12 h-12 md:w-16 md:h-16 text-orange-500 drop-shadow-[0_0_15px_rgba(255,165,0,0.8)]" />
         </div>
-        <div className="absolute top-0 right-4 md:right-10 animate-pulse delay-700 origin-top z-10">
+        <div className="absolute top-0 right-4 md:right-10 animate-pulse delay-700 origin-top z-0">
            <DiyaIcon className="w-12 h-12 md:w-16 md:h-16 text-orange-500 drop-shadow-[0_0_15px_rgba(255,165,0,0.8)]" />
         </div>
       </div>
     );
   }
 
-  // --- HOLI EFFECT ---
+  // --- HOLI EFFECT (Reduced Blur usage) ---
   if (theme === "holi") {
     return (
-      <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        {/* Using opacity instead of heavy blur filters for performance */}
         <motion.div
-          className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-pink-500/20 blur-[100px] rounded-full mix-blend-screen"
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 20, 0] }}
+          className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-pink-500/10 rounded-full mix-blend-multiply"
+          animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-yellow-500/20 blur-[100px] rounded-full mix-blend-screen"
-          animate={{ scale: [1, 1.3, 1], rotate: [0, -20, 0] }}
+          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-yellow-500/10 rounded-full mix-blend-multiply"
+          animate={{ scale: [1, 1.2, 1], rotate: [0, -20, 0] }}
           transition={{ duration: 12, repeat: Infinity }}
         />
         <motion.div
-          className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-cyan-500/20 blur-[80px] rounded-full mix-blend-screen"
-          animate={{ x: [0, 50, 0], y: [0, 50, 0] }}
+          className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-cyan-500/10 rounded-full mix-blend-multiply"
+          animate={{ x: [0, 30, 0], y: [0, 30, 0] }}
           transition={{ duration: 15, repeat: Infinity }}
         />
       </div>
@@ -249,7 +245,6 @@ const ThemeEffects = () => {
   return null;
 };
 
-// --- ICONS ---
 const DiyaIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M12 2C12 2 10 6 10 8C10 9.1 10.9 10 12 10C13.1 10 14 9.1 14 8C14 6 12 2 12 2Z" className="text-yellow-400" />
