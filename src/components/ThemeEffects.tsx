@@ -95,7 +95,8 @@ const ThemeEffects = () => {
         {/* 2. Fireworks (Simple burst, low particle count) */}
         {showNewYearFireworks && (
           <div className="absolute inset-0 z-0">
-            {[...Array(4)].map((_, i) => (
+            {/* Reduced from 4 to 2 */}
+            {[...Array(2)].map((_, i) => (
               <motion.div
                 key={`ny-firework-${i}`}
                 className="absolute"
@@ -136,7 +137,8 @@ const ThemeEffects = () => {
 
         {/* 3. Falling Confetti (Reduced count) */}
         <div className="absolute inset-0 z-0">
-          {[...Array(30)].map((_, i) => (
+          {/* Reduced from 30 to 12 */}
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={`confetti-fall-${i}`}
               className="absolute"
@@ -173,7 +175,8 @@ const ThemeEffects = () => {
   if (theme === "diwali") {
     return (
       <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
-        {[...Array(5)].map((_, i) => (
+        {/* Reduced from 5 to 2 */}
+        {[...Array(2)].map((_, i) => (
           <motion.div
             key={`firework-${i}`}
             className="absolute"
