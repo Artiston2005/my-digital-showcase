@@ -24,27 +24,6 @@ const Hero = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "100%"]);
 
-  const nameVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const charVariants = {
-    hidden: { opacity: 0, y: 20, rotateX: 90 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: { type: "spring", damping: 12, stiffness: 100 },
-    },
-  };
-
   return (
     <section ref={ref} className="min-h-screen flex flex-col justify-center relative overflow-hidden px-6 lg:px-12">
       
@@ -88,27 +67,18 @@ const Hero = () => {
             </p>
           </motion.div>
           
-          <motion.h1 
-            className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl xl:text-[9rem] tracking-tight leading-[0.9]"
-            variants={nameVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <span className="block gradient-text-hero">
-              {Array.from("Ashwin").map((char, i) => (
-                <motion.span key={i} variants={charVariants} className="inline-block origin-bottom">
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-            <span className="block text-foreground">
-              {Array.from("Yadav").map((char, i) => (
-                <motion.span key={i} variants={charVariants} className="inline-block origin-bottom">
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          </motion.h1>
+          <div className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl xl:text-[9rem] tracking-tight leading-[0.9]">
+            <ScrambleText 
+              text="Ashwin" 
+              className="block gradient-text-hero cursor-pointer" 
+              delay={0}
+            />
+            <ScrambleText 
+              text="Yadav" 
+              className="block text-foreground cursor-pointer" 
+              delay={500}
+            />
+          </div>
           
           <motion.p 
             className="text-muted-foreground font-body text-xl lg:text-2xl max-w-2xl leading-relaxed"
@@ -139,7 +109,7 @@ const Hero = () => {
               {[
                 { Icon: Github, href: "https://github.com/Artiston2005" },
                 { Icon: Linkedin, href: "https://www.linkedin.com/in/ashwin-yadav-1704a1248" }
-              ].map(({ Icon, href }, index) => (
+              ].map(({ Icon, href }) => (
                 <motion.a 
                   key={href}
                   href={href} 
@@ -183,6 +153,90 @@ const Hero = () => {
         </a>
       </motion.div>
     </section>
+  );
+};
+
+// --- HIGH PERFORMANCE SCRAMBLE COMPONENT ---
+const ScrambleText = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
+  const [displayText, setDisplayText] = useState(text);
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+";
+  
+  // Ref for cleanup
+  const requestRef = useRef<number>();
+  const startTimeRef = useRef<number>();
+  const isHovering = useRef(false);
+
+  const scramble = (triggerDelay = 0) => {
+    // Prevent overlapping animations
+    if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    
+    // Set start time slightly in the future if there's a delay
+    const startDelay = triggerDelay;
+    startTimeRef.current = Date.now() + startDelay;
+    
+    const DURATION = 1200; // Slower, smoother reveal (1.2s)
+
+    const animate = () => {
+      const now = Date.now();
+      
+      // Wait for delay
+      if (now < (startTimeRef.current || 0)) {
+        requestRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      const elapsed = now - (startTimeRef.current || now);
+      const progress = Math.min(elapsed / DURATION, 1);
+      
+      // Quartic easing for very smooth slowdown at the end
+      const ease = 1 - Math.pow(1 - progress, 4);
+      
+      // Calculate how many characters to reveal based on eased progress
+      const revealCount = Math.floor(ease * text.length);
+      
+      const nextText = text
+        .split("")
+        .map((char, index) => {
+          if (index < revealCount) return char;
+          // Random character for unrevealed parts
+          if (char === " ") return " ";
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join("");
+
+      setDisplayText(nextText);
+
+      if (progress < 1) {
+        requestRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+  };
+
+  // Run on mount with delay
+  useEffect(() => {
+    // Initial scramble effect
+    scramble(delay);
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, [text, delay]);
+
+  return (
+    <motion.span 
+      className={className}
+      onHoverStart={() => {
+        isHovering.current = true;
+        scramble(0);
+      }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut", delay: delay / 1000 }}
+      whileHover={{ scale: 1.02 }}
+    >
+      {displayText}
+    </motion.span>
   );
 };
 

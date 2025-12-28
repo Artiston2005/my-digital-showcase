@@ -45,7 +45,7 @@ const Navigation = () => {
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Updated Logo */}
         <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text relative z-50">
-          Ashwin Yadav.
+          Ashwin Yadav
         </a>
 
         {/* Desktop Navigation */}
