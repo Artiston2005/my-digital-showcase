@@ -1,6 +1,8 @@
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { Code2, Smartphone, Wrench, Brain } from "lucide-react";
 import { MouseEvent } from "react";
+import ScrollReveal from "@/components/ScrollReveal";
+import { StaggerContainer, StaggerItem } from "@/components/StaggerAnimation";
 
 const skills = [
   { 
@@ -25,78 +27,47 @@ const skills = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
 export default function Skills() {
   return (
     <section id="skills" className="section-padding">
       <div className="max-container">
-        <motion.div 
-          className="text-center mb-16 space-y-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <ScrollReveal className="text-center mb-16 space-y-4">
           <p className="section-label">Expertise</p>
           <h2 className="section-title">Skills & Technologies</h2>
           <p className="section-description mx-auto">
             The tools and technologies I use to bring ideas to life.
           </p>
-        </motion.div>
+        </ScrollReveal>
         
-        <motion.div 
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {skills.map((skill) => (
-            <SpotlightCard key={skill.category}>
-              <div className="relative z-10 h-full p-6 lg:p-8">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                  <skill.icon className="w-6 h-6 text-primary" />
+            <StaggerItem key={skill.category}>
+              <SpotlightCard>
+                <div className="relative z-10 h-full p-6 lg:p-8">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                    <skill.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  
+                  <h3 className="font-display font-bold text-xl mb-5 group-hover:text-primary transition-colors">
+                    {skill.category}
+                  </h3>
+                  
+                  <ul className="space-y-3">
+                    {skill.items.map((item) => (
+                      <li 
+                        key={item}
+                        className="text-muted-foreground font-body flex items-center gap-3 text-sm cursor-default transition-transform hover:translate-x-1 hover:text-foreground"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <h3 className="font-display font-bold text-xl mb-5 group-hover:text-primary transition-colors">
-                  {skill.category}
-                </h3>
-                
-                <ul className="space-y-3">
-                  {skill.items.map((item) => (
-                    <motion.li 
-                      key={item}
-                      className="text-muted-foreground font-body flex items-center gap-3 text-sm cursor-default"
-                      whileHover={{ x: 5, color: "hsl(var(--foreground))" }}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                      {item}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </SpotlightCard>
+              </SpotlightCard>
+            </StaggerItem>
           ))}
-        </motion.div>
+        </StaggerContainer>
       </div>
     </section>
   );
@@ -114,11 +85,9 @@ function SpotlightCard({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <motion.div
-      variants={itemVariants}
+    <div
       className="group relative border border-border bg-card/50 rounded-2xl overflow-hidden"
       onMouseMove={handleMouseMove}
-      whileHover={{ y: -5 }}
     >
       {/* Spotlight Gradient Layer */}
       <motion.div
@@ -134,6 +103,6 @@ function SpotlightCard({ children }: { children: React.ReactNode }) {
         }}
       />
       {children}
-    </motion.div>
+    </div>
   );
 }

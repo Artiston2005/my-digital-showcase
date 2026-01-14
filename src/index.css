@@ -1,3 +1,4 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -92,7 +93,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body antialiased transition-colors duration-700;
+    /* Changed from duration-700 to duration-300 for snappier theme switching */
+    @apply bg-background text-foreground font-body antialiased transition-colors duration-300;
     font-family: var(--font-body);
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -122,7 +124,6 @@
 }
 
 @layer components {
-  /* ... (Existing component classes) ... */
   .gradient-text {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -146,7 +147,7 @@
   }
 
   .card-hover {
-    @apply transition-all duration-500 ease-out hover:border-primary/30;
+    @apply transition-all duration-300 ease-out hover:border-primary/30;
   }
 
   .card-hover:hover {

@@ -2,10 +2,9 @@ import { Mail, Send, ArrowUpRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -15,8 +14,6 @@ const contactSchema = z.object({
 
 const Contact = () => {
   const { toast } = useToast();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -73,17 +70,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-card/30" ref={ref}>
+    <section id="contact" className="section-padding bg-card/30">
       <div className="max-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Contact Info */}
           <div className="space-y-8">
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <ScrollReveal className="space-y-4">
               <p className="section-label">Contact</p>
               <h2 className="section-title">
                 Let's work{" "}
@@ -93,14 +85,9 @@ const Contact = () => {
                 Have a project in mind? I'd love to hear about it. Send me a message 
                 and let's create something amazing together.
               </p>
-            </motion.div>
+            </ScrollReveal>
             
-            <motion.div 
-              className="space-y-4 pt-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <ScrollReveal delay={0.1} className="space-y-4 pt-4">
               <a 
                 href="mailto:ashwinyadav2408@gmail.com"
                 className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 group"
@@ -114,98 +101,92 @@ const Contact = () => {
                 </div>
                 <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
               </a>
-            </motion.div>
+            </ScrollReveal>
 
             {/* Decorative element */}
-            <motion.div 
-              className="hidden lg:block pt-8"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
+            <ScrollReveal delay={0.2} className="hidden lg:block pt-8">
               <div className="w-full h-px bg-gradient-to-r from-border via-primary/30 to-transparent" />
               <p className="text-muted-foreground text-sm mt-4 font-body">
                 I typically respond within 24 hours.
               </p>
-            </motion.div>
+            </ScrollReveal>
           </div>
           
           {/* Contact Form */}
-          <motion.form 
-            onSubmit={handleSubmit} 
-            className="space-y-6 bg-card border border-border rounded-2xl p-6 lg:p-8"
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-body font-medium text-foreground">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-                disabled={isSubmitting}
-                className="input-field disabled:opacity-50"
-                placeholder="Your name"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-body font-medium text-foreground">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                disabled={isSubmitting}
-                className="input-field disabled:opacity-50"
-                placeholder="your@email.com"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-body font-medium text-foreground">
-                Message
-              </label>
-              <textarea
-                id="message"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-                disabled={isSubmitting}
-                rows={5}
-                className="input-field resize-none disabled:opacity-50"
-                placeholder="Tell me about your project..."
-              />
-            </div>
-            
-            <Button 
-              type="submit" 
-              variant="hero" 
-              size="xl" 
-              className="w-full"
-              disabled={isSubmitting}
+          <ScrollReveal direction="left" delay={0.2}>
+            <form 
+              onSubmit={handleSubmit} 
+              className="space-y-6 bg-card border border-border rounded-2xl p-6 lg:p-8"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send className="w-5 h-5" />
-                  Send Message
-                </>
-              )}
-            </Button>
-          </motion.form>
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-body font-medium text-foreground">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  disabled={isSubmitting}
+                  className="input-field disabled:opacity-50"
+                  placeholder="Your name"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-body font-medium text-foreground">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  disabled={isSubmitting}
+                  className="input-field disabled:opacity-50"
+                  placeholder="your@email.com"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-body font-medium text-foreground">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  disabled={isSubmitting}
+                  rows={5}
+                  className="input-field resize-none disabled:opacity-50"
+                  placeholder="Tell me about your project..."
+                />
+              </div>
+              
+              <Button 
+                type="submit" 
+                variant="hero" 
+                size="xl" 
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
+              </Button>
+            </form>
+          </ScrollReveal>
         </div>
       </div>
     </section>

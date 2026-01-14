@@ -1,3 +1,4 @@
+/* src/components/Hero.tsx */
 import { Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -59,7 +60,7 @@ const Hero = () => {
             className="flex items-center gap-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }} // Faster: 0.4s
           >
             <span className="w-12 h-[2px] bg-primary" />
             <p className="text-muted-foreground font-body text-lg tracking-wide">
@@ -76,7 +77,7 @@ const Hero = () => {
             <ScrambleText 
               text="Yadav" 
               className="block text-foreground cursor-pointer" 
-              delay={500}
+              delay={300} // Faster delay between words
             />
           </div>
           
@@ -84,7 +85,7 @@ const Hero = () => {
             className="text-muted-foreground font-body text-xl lg:text-2xl max-w-2xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.4, delay: 0.5, ease: "easeOut" }} // Faster
           >
             Second year <span className="text-foreground">Computer Science & Engineering</span> student 
             at GIT Jaipur. Building innovative software solutions that make a difference.
@@ -94,7 +95,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row sm:items-center gap-6 pt-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
+            transition={{ duration: 0.4, delay: 0.6, ease: "easeOut" }} // Faster
           >
             <div className="flex flex-wrap gap-4">
               <Button variant="hero" size="xl" asChild className="hover-lift">
@@ -132,7 +133,7 @@ const Hero = () => {
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
+        transition={{ duration: 0.6, delay: 1 }}
       >
         <a 
           href="#about" 
@@ -174,7 +175,7 @@ const ScrambleText = ({ text, className, delay = 0 }: { text: string, className?
     const startDelay = triggerDelay;
     startTimeRef.current = Date.now() + startDelay;
     
-    const DURATION = 1200; // Slower, smoother reveal (1.2s)
+    const DURATION = 600; // Significantly faster (was 1200)
 
     const animate = () => {
       const now = Date.now();
@@ -232,7 +233,7 @@ const ScrambleText = ({ text, className, delay = 0 }: { text: string, className?
       }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: delay / 1000 }}
+      transition={{ duration: 0.6, ease: "easeOut", delay: delay / 1000 }}
       whileHover={{ scale: 1.02 }}
     >
       {displayText}

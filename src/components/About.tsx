@@ -1,11 +1,7 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import ScrollReveal from "@/components/ScrollReveal";
 import profileImage from "@/assets/profile.jpg";
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   const stats = [
     { value: "2nd", label: "Year CSE" },
     { value: "3+", label: "Projects Built" },
@@ -13,16 +9,12 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-padding" ref={ref}>
+    <section id="about" className="section-padding">
       <div className="max-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Profile Image */}
-          <motion.div 
-            className="relative order-2 lg:order-1"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
+          
+          {/* Profile Image - Slides in from Left */}
+          <ScrollReveal direction="right" className="relative order-2 lg:order-1">
             <div className="relative">
               {/* Main image container */}
               <div className="aspect-[4/5] rounded-2xl overflow-hidden relative border border-border/50 shadow-elevated">
@@ -31,7 +23,6 @@ const About = () => {
                   alt="Ashwin Yadav"
                   className="w-full h-full object-cover object-top"
                 />
-                {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               </div>
               
@@ -40,39 +31,24 @@ const About = () => {
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/10 rounded-2xl blur-2xl -z-10" />
               
               {/* Floating badge */}
-              <motion.div 
-                className="absolute -bottom-6 -right-6 glass border border-border/50 rounded-xl p-5 shadow-lg"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
+              <div className="absolute -bottom-6 -right-6 glass border border-border/50 rounded-xl p-5 shadow-lg animate-in fade-in zoom-in duration-700 delay-500 fill-mode-backwards">
                 <p className="font-display font-bold text-xl text-primary">Available</p>
                 <p className="text-muted-foreground text-sm">for opportunities</p>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </ScrollReveal>
 
-          {/* Text Content */}
+          {/* Text Content - Slides in from Right (or Up) */}
           <div className="space-y-8 order-1 lg:order-2">
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <ScrollReveal direction="left" delay={0.1} className="space-y-4">
               <p className="section-label">About Me</p>
               <h2 className="section-title">
                 Passionate about creating{" "}
                 <span className="gradient-text">innovative</span> solutions
               </h2>
-            </motion.div>
+            </ScrollReveal>
             
-            <motion.div 
-              className="space-y-5 text-muted-foreground font-body text-lg leading-relaxed"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <ScrollReveal direction="left" delay={0.2} className="space-y-5 text-muted-foreground font-body text-lg leading-relaxed">
               <p>
                 I'm Ashwin Yadav, a second year Computer Science & Engineering student 
                 at GIT Jaipur. I love building software that solves real-world problems 
@@ -83,27 +59,24 @@ const About = () => {
                 technologies and creating projects that have practical applications. 
                 I believe in learning by doing and constantly challenging myself with new projects.
               </p>
-            </motion.div>
+            </ScrollReveal>
             
             {/* Stats */}
-            <motion.div 
-              className="grid grid-cols-3 gap-6 pt-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {stats.map((stat, index) => (
-                <div 
-                  key={stat.label}
-                  className="text-center lg:text-left p-4 rounded-xl bg-card/50 border border-border/50"
-                >
-                  <p className="font-display font-bold text-3xl lg:text-4xl gradient-text">
-                    {stat.value}
-                  </p>
-                  <p className="text-muted-foreground text-sm mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </motion.div>
+            <ScrollReveal direction="up" delay={0.3}>
+              <div className="grid grid-cols-3 gap-6 pt-6">
+                {stats.map((stat) => (
+                  <div 
+                    key={stat.label}
+                    className="text-center lg:text-left p-4 rounded-xl bg-card/50 border border-border/50 hover:bg-card transition-colors duration-300"
+                  >
+                    <p className="font-display font-bold text-3xl lg:text-4xl gradient-text">
+                      {stat.value}
+                    </p>
+                    <p className="text-muted-foreground text-sm mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

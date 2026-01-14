@@ -1,3 +1,4 @@
+/* src/components/StaggerAnimation.tsx */
 import { useRef, ReactNode } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 
@@ -13,20 +14,20 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
+      staggerChildren: 0.05, // Faster stagger (was 0.1)
+      delayChildren: 0.05,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 }, // Reduced movement distance
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.25, 0.1, 0.25, 1],
+      duration: 0.3, // Faster duration (was 0.5)
+      ease: "easeOut",
     },
   },
 };

@@ -1,3 +1,4 @@
+/* src/components/ScrollReveal.tsx */
 import { useRef, ReactNode } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 
@@ -12,19 +13,19 @@ interface ScrollRevealProps {
 
 const directionVariants: Record<string, { hidden: object; visible: object }> = {
   up: {
-    hidden: { opacity: 0, y: 60 },
+    hidden: { opacity: 0, y: 40 }, // Reduced distance from 60 to 40
     visible: { opacity: 1, y: 0 },
   },
   down: {
-    hidden: { opacity: 0, y: -60 },
+    hidden: { opacity: 0, y: -40 },
     visible: { opacity: 1, y: 0 },
   },
   left: {
-    hidden: { opacity: 0, x: 60 },
+    hidden: { opacity: 0, x: 40 },
     visible: { opacity: 1, x: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: -60 },
+    hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0 },
   },
   none: {
@@ -38,11 +39,11 @@ const ScrollReveal = ({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 0.6,
+  duration = 0.4, // Faster default duration (was 0.6)
   once = true,
 }: ScrollRevealProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin: "-100px" });
+  const isInView = useInView(ref, { once, margin: "-50px" }); // Smaller margin to trigger earlier
 
   const variants = directionVariants[direction];
 
@@ -55,7 +56,7 @@ const ScrollReveal = ({
       transition={{
         duration,
         delay,
-        ease: [0.25, 0.1, 0.25, 1],
+        ease: "easeOut", // Simpler easeOut is often snappier than complex beziers
       }}
       className={className}
     >
