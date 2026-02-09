@@ -15,7 +15,7 @@ const contactSchema = z.object({
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,7 +24,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form data
     const validation = contactSchema.safeParse(formData);
     if (!validation.success) {
@@ -82,13 +82,13 @@ const Contact = () => {
                 <span className="gradient-text">together</span>
               </h2>
               <p className="section-description">
-                Have a project in mind? I'd love to hear about it. Send me a message 
+                Have a project in mind? I'd love to hear about it. Send me a message
                 and let's create something amazing together.
               </p>
             </ScrollReveal>
-            
+
             <ScrollReveal delay={0.1} className="space-y-4 pt-4">
-              <a 
+              <a
                 href="mailto:ashwinyadav2408@gmail.com"
                 className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 group"
               >
@@ -111,65 +111,77 @@ const Contact = () => {
               </p>
             </ScrollReveal>
           </div>
-          
+
           {/* Contact Form */}
           <ScrollReveal direction="left" delay={0.2}>
-            <form 
-              onSubmit={handleSubmit} 
+            <form
+              onSubmit={handleSubmit}
               className="space-y-6 bg-card border border-border rounded-2xl p-6 lg:p-8"
             >
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-body font-medium text-foreground">
+                <label htmlFor="name" className="text-sm font-body font-medium text-foreground ml-1">
                   Name
                 </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  disabled={isSubmitting}
-                  className="input-field disabled:opacity-50"
-                  placeholder="Your name"
-                />
+                <div className="relative group/input">
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                    disabled={isSubmitting}
+                    className="input-field disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
+                    placeholder="Your name"
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover/input:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute bottom-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-focus-within/input:scale-x-100 transition-transform duration-500" />
+                </div>
               </div>
-              
+
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-body font-medium text-foreground">
+                <label htmlFor="email" className="text-sm font-body font-medium text-foreground ml-1">
                   Email
                 </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  disabled={isSubmitting}
-                  className="input-field disabled:opacity-50"
-                  placeholder="your@email.com"
-                />
+                <div className="relative group/input">
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    disabled={isSubmitting}
+                    className="input-field disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
+                    placeholder="your@email.com"
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover/input:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute bottom-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-focus-within/input:scale-x-100 transition-transform duration-500" />
+                </div>
               </div>
-              
+
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-body font-medium text-foreground">
+                <label htmlFor="message" className="text-sm font-body font-medium text-foreground ml-1">
                   Message
                 </label>
-                <textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                  disabled={isSubmitting}
-                  rows={5}
-                  className="input-field resize-none disabled:opacity-50"
-                  placeholder="Tell me about your project..."
-                />
+                <div className="relative group/input">
+                  <textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    disabled={isSubmitting}
+                    rows={5}
+                    className="input-field resize-none disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
+                    placeholder="Tell me about your project..."
+                  />
+                  <div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover/input:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute bottom-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-focus-within/input:scale-x-100 transition-transform duration-500" />
+                </div>
               </div>
-              
-              <Button 
-                type="submit" 
-                variant="hero" 
-                size="xl" 
+
+              <Button
+                type="submit"
+                variant="hero"
+                size="xl"
                 className="w-full"
                 disabled={isSubmitting}
               >

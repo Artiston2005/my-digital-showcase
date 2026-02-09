@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import ThemeSelector from "./ThemeSelector";
 
 const navItems = [
@@ -11,6 +11,45 @@ const navItems = [
   { label: "Resume", href: "/resume.pdf" },
   { label: "Contact", href: "#contact" },
 ];
+
+const MagneticLink = ({ children, href }: { children: React.ReactNode, href: string }) => {
+  const ref = useRef<HTMLAnchorElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
+  const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!ref.current) return;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+
+    x.set((e.clientX - centerX) * 0.3);
+    y.set((e.clientY - centerY) * 0.3);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: mouseX, y: mouseY }}
+      className="px-4 py-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors relative group block"
+    >
+      {children}
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+    </motion.a>
+  );
+};
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,18 +72,17 @@ const Navigation = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border/50 py-3"
-          : "bg-transparent py-5"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-background/70 backdrop-blur-md border-b border-border/50 py-3 shadow-sm"
+          : "bg-transparent py-6"
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Updated Logo */}
-        <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text relative z-50">
+        <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text relative z-50 tracking-tight">
           Ashwin Yadav
         </a>
 
@@ -52,23 +90,19 @@ const Navigation = () => {
         <div className="hidden md:flex items-center gap-6">
           <ul className="flex items-center gap-1">
             {navItems.map((item, index) => (
-              <motion.li 
+              <motion.li
                 key={item.label}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 * index }}
               >
-                <a
-                  href={item.href}
-                  className="px-4 py-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
-                >
+                <MagneticLink href={item.href}>
                   {item.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
+                </MagneticLink>
               </motion.li>
             ))}
           </ul>
-          
+
           {/* Theme Selector */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -83,7 +117,7 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, delay: 0.4 }}
           >
-            <Button variant="hero" size="sm" asChild>
+            <Button variant="hero" size="sm" asChild className="hover-lift shadow-glow hover:shadow-glow-lg transition-all duration-300">
               <a href="#contact">Let's Talk</a>
             </Button>
           </motion.div>
@@ -92,7 +126,7 @@ const Navigation = () => {
         {/* Mobile Controls */}
         <div className="flex items-center gap-4 md:hidden relative z-50">
           <ThemeSelector />
-          
+
           <button
             className="p-2 text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -128,25 +162,25 @@ const Navigation = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <motion.div
             className="md:hidden fixed inset-0 bg-background/98 backdrop-blur-xl z-40 flex flex-col justify-center items-center"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            initial={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
+            animate={{ opacity: 1, clipPath: "circle(150% at 100% 0%)" }}
+            exit={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             <ul className="flex flex-col items-center gap-8">
               {navItems.map((item, i) => (
-                <motion.li 
+                <motion.li
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.1 }}
+                  transition={{ delay: 0.2 + i * 0.1 }}
                 >
                   <a
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-display text-3xl font-bold text-foreground hover:text-primary transition-colors"
+                    className="font-display text-4xl font-bold text-foreground hover:text-primary transition-colors"
                   >
                     {item.label}
                   </a>
@@ -155,7 +189,7 @@ const Navigation = () => {
               <motion.li
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + navItems.length * 0.1 }}
+                transition={{ delay: 0.2 + navItems.length * 0.1 }}
                 className="pt-4"
               >
                 <Button variant="hero" size="xl" asChild>

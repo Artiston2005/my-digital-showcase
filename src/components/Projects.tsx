@@ -1,17 +1,21 @@
-import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
+import gitkaWifiAdminImage from "@/assets/gitkawifi_admin.jpeg";
 import quizGameImage from "@/assets/quiz-game.png";
 import portfolioImage from "@/assets/portfolio-screenshot.png";
 import ScrollReveal from "@/components/ScrollReveal";
 import { StaggerContainer, StaggerItem } from "@/components/StaggerAnimation";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 const projects = [
   {
-    title: "Git Ka Wifi",
-    description: "A system tray utility built with Python that automatically logs you into the GIT Jaipur captive Wi-Fi portal. Also available as an Android app developed in Kotlin.",
-    tags: ["Python", "Kotlin", "Android", "Automation"],
-    image: gitkaWifiImage,
+    title: "Git Ka Wifi Ecosystem",
+    description: "A complete connectivity suite for GIT Jaipur campus. Includes an automated login client for Windows/Android and a comprehensive Admin Dashboard (Showcase) for network management.",
+    tags: ["Python", "Kotlin", "React", "Full Stack Ecosystem"],
+    image: gitkaWifiImage, // Main image (Client)
+    secondaryImage: gitkaWifiAdminImage, // Admin Dashboard
     featured: true,
     links: [
       { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi", icon: "github" },
@@ -40,113 +44,184 @@ const projects = [
   },
 ];
 
+const ProjectCard = ({ project }: { project: typeof projects[0] & { secondaryImage?: string } }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseX = useSpring(x, { stiffness: 500, damping: 100 });
+  const mouseY = useSpring(y, { stiffness: 500, damping: 100 });
+
+  const rotateX = useTransform(mouseY, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-5deg", "5deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current || isMobile) return;
+
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseXFromCenter = e.clientX - rect.left - width / 2;
+    const mouseYFromCenter = e.clientY - rect.top - height / 2;
+
+    x.set(mouseXFromCenter / width);
+    y.set(mouseYFromCenter / height);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX: isMobile ? 0 : rotateX,
+        rotateY: isMobile ? 0 : rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="h-full"
+    >
+      <article
+        className="group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden h-full flex flex-col transition-shadow duration-500 hover:shadow-glow hover:border-primary/50"
+        style={{ transform: "translateZ(0)" }}
+      >
+        {/* Shine Effect (Desktop only) */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10 hidden md:block"
+          style={{
+            background: "radial-gradient(800px circle at calc(var(--mouse-x, 50%) * 100%) calc(var(--mouse-y, 50%) * 100%), rgba(255,255,255,0.06), transparent 40%)"
+          }}
+        />
+
+        {/* Project Image Container */}
+        <div className="aspect-video bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500">
+
+          {/* Side-by-Side View for Ecosystem */}
+          {project.secondaryImage ? (
+            <div className="w-full h-full flex border-b border-white/10">
+              {/* Client Side */}
+              <div className="w-1/2 h-full relative border-r border-white/10 group/client overflow-hidden">
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm">
+                  Client
+                </div>
+                <div className="w-full h-full p-2 flex items-center justify-center">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} - Client App`}
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover/client:scale-110"
+                  />
+                </div>
+              </div>
+
+              {/* Admin Side */}
+              <div className="w-1/2 h-full relative group/admin overflow-hidden">
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm">
+                  Admin
+                </div>
+                <div className="w-full h-full p-2 flex items-center justify-center">
+                  <img
+                    src={project.secondaryImage}
+                    alt={`${project.title} - Admin App`}
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover/admin:scale-110"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Standard Single Image View */
+            <div className="w-full h-full p-4 flex items-center justify-center">
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-contain transition-all duration-700 group-hover:scale-105"
+              />
+            </div>
+          )}
+
+          {/* Buttons Overlay */}
+          <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-[2px] z-20 pointer-events-none">
+            <div className="pointer-events-auto flex gap-2 flex-wrap justify-center">
+              {project.links.map((link) => (
+                <Button key={link.label} variant="hero" size="sm" asChild className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
+                    {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
+                    {link.label}
+                  </a>
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Project Info */}
+        <div className="p-6 lg:p-8 space-y-4 flex-1 flex flex-col relative z-20 bg-card/50">
+          <div className="flex flex-col gap-2">
+            {project.featured && (
+              <span className="text-xs font-mono tracking-widest text-primary uppercase inline-block font-semibold">
+                Featured Project
+              </span>
+            )}
+            <h3 className="font-display font-bold text-2xl group-hover:text-primary transition-colors tracking-tight">
+              {project.title}
+            </h3>
+          </div>
+
+          <p className="text-muted-foreground font-body leading-relaxed flex-1 text-sm lg:text-base">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 pt-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-1 bg-secondary/50 border border-border/50 text-secondary-foreground text-xs rounded-md font-mono transition-colors duration-300 group-hover:border-primary/30 group-hover:text-primary"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </article>
+    </motion.div>
+  );
+};
+
 const Projects = () => {
   return (
-    <section id="projects" className="section-padding bg-card/30">
+    <section id="projects" className="section-padding bg-transparent">
       <div className="max-container">
         <ScrollReveal className="text-center mb-16 space-y-4">
-          <p className="section-label">Portfolio</p>
-          <h2 className="section-title">Featured Projects</h2>
+          <p className="section-label">Selected Work</p>
+          <h2 className="section-title">Featured <span className="gradient-text">Projects</span></h2>
           <p className="section-description mx-auto">
-            A selection of projects that showcase my skills and passion for creating 
+            A selection of projects that showcase my skills and passion for creating
             impactful digital solutions.
           </p>
         </ScrollReveal>
-        
+
         {/* Unified Projects Grid with Stagger Effect */}
-        <StaggerContainer className="grid md:grid-cols-2 gap-8">
-          {projects.map((project) => {
-            const isVerticalImage = project.tags.includes("Android");
-
-            return (
-              <StaggerItem key={project.title} className="h-full">
-                <article 
-                  className="group relative bg-card border border-border rounded-2xl overflow-hidden card-hover h-full flex flex-col"
-                >
-                  {/* Project Image Container */}
-                  <div className="aspect-video bg-secondary relative overflow-hidden">
-                    {isVerticalImage ? (
-                      <>
-                        <div className="absolute inset-0">
-                          <img 
-                            src={project.image} 
-                            alt=""
-                            className="w-full h-full object-cover opacity-40 blur-xl scale-110"
-                            decoding="async"
-                          />
-                        </div>
-                        <img 
-                          src={project.image} 
-                          alt={project.title}
-                          loading="lazy"
-                          decoding="async"
-                          className="relative w-full h-full object-contain p-2 z-10 transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </>
-                    ) : (
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      />
-                    )}
-
-                    <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-[2px] z-20">
-                      {project.links.map((link) => (
-                        <Button key={link.label} variant="hero" size="sm" asChild>
-                          <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
-                            {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
-                            {link.label}
-                          </a>
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Project Info */}
-                  <div className="p-6 lg:p-8 space-y-4 flex-1 flex flex-col">
-                    <div className="flex flex-col gap-2">
-                      {project.featured && (
-                        <span className="text-xs font-body tracking-widest text-primary uppercase inline-block">
-                          Featured
-                        </span>
-                      )}
-                      <h3 className="font-display font-bold text-xl lg:text-2xl group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                    </div>
-                    
-                    <p className="text-muted-foreground font-body leading-relaxed flex-1">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.tags.map((tag) => (
-                        <span key={tag} className="skill-tag text-xs">{tag}</span>
-                      ))}
-                    </div>
-                    
-                    <div className="flex items-center gap-4 pt-4 border-t border-border">
-                      {project.links.map((link) => (
-                        <a 
-                          key={link.label}
-                          href={link.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-body group/link"
-                        >
-                          {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
-                          {link.label}
-                          <ArrowUpRight className="w-3 h-3 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              </StaggerItem>
-            );
-          })}
+        <StaggerContainer className="grid md:grid-cols-2 gap-8 perspective-1000">
+          {projects.map((project) => (
+            <StaggerItem key={project.title} className="h-full">
+              <ProjectCard project={project} />
+            </StaggerItem>
+          ))}
         </StaggerContainer>
       </div>
     </section>

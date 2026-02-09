@@ -5,22 +5,37 @@
 
 @layer base {
   :root {
-    /* Default (Dark Modern) */
-    --background: 240 6% 7%;
-    --foreground: 40 20% 95%;
-    --primary: 16 85% 65%;
-    --primary-foreground: 240 6% 7%;
-    --secondary: 240 6% 14%;
-    --secondary-foreground: 40 20% 95%;
-    --muted: 240 6% 18%;
-    --muted-foreground: 40 10% 60%;
-    --border: 240 6% 20%;
-    --input: 240 6% 20%;
-    --ring: 16 85% 65%;
+    /* Default (Dark Premium) */
+    --background: 240 10% 4%; /* Deeper, richer black */
+    --foreground: 0 0% 98%;
+    
+    --primary: 20 90% 60%; /* Vibrant Orange-Red */
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 240 6% 10%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+    
+    --accent: 20 90% 60%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 20 90% 60%;
+    
     --radius: 0.75rem;
-    --gradient-primary: linear-gradient(135deg, hsl(16, 85%, 65%) 0%, hsl(35, 90%, 60%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(16, 85%, 65%) 0%, hsl(25, 90%, 55%) 50%, hsl(35, 90%, 60%) 100%);
-    --shadow-glow: 0 0 60px hsl(16, 85%, 65%, 0.15);
+
+    --gradient-primary: linear-gradient(135deg, hsl(20, 90%, 60%) 0%, hsl(35, 90%, 60%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(20, 90%, 60%) 0%, hsl(25, 90%, 55%) 50%, hsl(35, 90%, 60%) 100%);
+    --shadow-glow: 0 0 60px hsl(20, 90%, 60%, 0.15);
+    
+    /* Noise Texture */
+    --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   }
 
   /* Diwali Theme (Dark Gold Night) */
@@ -39,13 +54,13 @@
 
   /* Christmas Theme (Snowy Night) */
   [data-theme='christmas'] {
-    --background: 220 20% 8%;
+    --background: 220 20% 6%;
     --foreground: 220 20% 98%;
     --primary: 350 85% 60%; /* Santa Red */
     --primary-foreground: 220 20% 98%;
     --secondary: 160 30% 12%; /* Pine Green */
     --muted: 220 20% 18%;
-    --border: 220 20% 25%;
+    --border: 220 20% 20%;
     --gradient-primary: linear-gradient(135deg, #D42426 0%, #2F5233 100%);
     --gradient-hero: linear-gradient(135deg, #FF3F3F 0%, #FFFFFF 50%, #2F5233 100%);
     --shadow-glow: 0 0 80px rgba(255, 255, 255, 0.2);
@@ -57,9 +72,9 @@
     --foreground: 280 20% 98%;
     --primary: 320 80% 60%; /* Electric Magenta */
     --primary-foreground: 260 20% 5%;
-    --secondary: 260 30% 15%;
-    --muted: 260 20% 20%;
-    --border: 260 30% 25%;
+    --secondary: 260 30% 12%;
+    --muted: 260 20% 16%;
+    --border: 260 30% 20%;
     --gradient-primary: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%); /* Electric Blue */
     --gradient-hero: linear-gradient(135deg, #FF00CC 0%, #333399 100%); /* Vaporwave vibe */
     --shadow-glow: 0 0 80px rgba(0, 198, 255, 0.3);
@@ -67,14 +82,14 @@
 
   /* Holi Theme (Bright & Colorful) */
   [data-theme='holi'] {
-    --background: 260 20% 10%; 
+    --background: 260 20% 8%; 
     --foreground: 260 10% 95%;
     --primary: 320 90% 55%; /* Magenta */
     --primary-foreground: 260 10% 98%;
-    --secondary: 190 30% 90%;
-    --muted: 260 10% 80%;
-    --border: 260 20% 25%;
-    --card: 260 20% 13%;
+    --secondary: 190 30% 12%;
+    --muted: 260 10% 16%;
+    --border: 260 20% 20%;
+    --card: 260 20% 10%;
     --gradient-primary: linear-gradient(135deg, #E91E63 0%, #FFEB3B 100%);
     --gradient-hero: linear-gradient(135deg, #9C27B0 0%, #E91E63 33%, #FFEB3B 66%, #00BCD4 100%);
     --shadow-glow: 0 0 100px rgba(233, 30, 99, 0.3);
@@ -90,16 +105,32 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    @apply antialiased;
   }
 
   body {
     /* Changed from duration-700 to duration-300 for snappier theme switching */
-    @apply bg-background text-foreground font-body antialiased transition-colors duration-300;
+    @apply bg-background text-foreground font-body antialiased transition-colors duration-300 relative;
     font-family: var(--font-body);
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Noise Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--noise-pattern);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: overlay;
   }
   
   ::selection {
@@ -108,15 +139,14 @@
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--muted));
-    border-radius: 5px;
-    border: 2px solid hsl(var(--background));
+    border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--muted-foreground));
@@ -129,6 +159,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    @apply inline-block;
   }
 
   .gradient-text-hero {
@@ -136,6 +167,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    @apply inline-block;
   }
 
   .section-padding {
