@@ -1,4 +1,4 @@
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Smartphone, Shield, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
 import gitkaWifiAdminImage from "@/assets/gitkawifi_admin.jpeg";
@@ -10,18 +10,60 @@ import { StaggerContainer, StaggerItem } from "@/components/StaggerAnimation";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
-const projects = [
+interface ProjectDetail {
+  title: string;
+  icon: React.ElementType;
+  role: string;
+  tech: string;
+  features: string[];
+}
+
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  gallery?: { src: string; label: string }[];
+  featured: boolean;
+  links: { label: string; url: string; icon: string }[];
+  details?: ProjectDetail[];
+}
+
+const projects: Project[] = [
   {
     title: "Git Ka Wifi Ecosystem",
-    description: "A complete connectivity suite for GIT Jaipur campus. Includes an automated login client for Windows/Android and a comprehensive Admin Dashboard (Showcase) for network management.",
-    tags: ["Python", "Kotlin", "React", "Full Stack Ecosystem"],
-    image: gitkaWifiPcImage, // Fallback/Main
+    description: "A comprehensive connectivity suite designed to automate network authentication (Fortinet) for the GIT Jaipur campus. It bridges the gap between students and administration through a secure, multi-platform ecosystem.",
+    tags: ["Kotlin", "Android", "Firebase", "Python", "Server-Driven UI"],
+    image: gitkaWifiPcImage,
     gallery: [
-      { src: gitkaWifiPcImage, label: "Windows PC" },
-      { src: gitkaWifiImage, label: "Android App" },
-      { src: gitkaWifiAdminImage, label: "Admin App" },
+      { src: gitkaWifiPcImage, label: "Windows Client" },
+      { src: gitkaWifiImage, label: "Student App" },
+      { src: gitkaWifiAdminImage, label: "Admin Panel" },
     ],
     featured: true,
+    details: [
+      {
+        title: "Android Client",
+        icon: Smartphone,
+        role: "Student-facing background utility.",
+        tech: "Kotlin • XML • WorkManager",
+        features: ["Auto-login (OkHttp/FortiClient)", "Server-Driven UI via Firebase", "Background Connection Service"]
+      },
+      {
+        title: "Admin God Mode",
+        icon: Shield,
+        role: "Centralized control dashboard.",
+        tech: "Kotlin • Biometrics",
+        features: ["Live JSON Dashboard Editor", "Ghost Session Detection", "OTA Force Updates"]
+      },
+      {
+        title: "Windows Client",
+        icon: Monitor,
+        role: "Desktop auto-login agent.",
+        tech: "Python • Tkinter",
+        features: ["Lightweight Native GUI", "Cross-platform Session Sync", "Low-overhead background process"]
+      }
+    ],
     links: [
       { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi", icon: "github" },
       { label: "Android", url: "https://github.com/Artiston2005/git-ka-wifi-android/releases", icon: "github" },
@@ -49,7 +91,7 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
+const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLandscape?: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -101,7 +143,8 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
       className="h-full"
     >
       <article
-        className="group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden h-full flex flex-col transition-shadow duration-500 hover:shadow-glow hover:border-primary/50"
+        className={`group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden h-full flex flex-col ${isLandscape ? "md:flex-row" : ""
+          } transition-shadow duration-500 hover:shadow-glow hover:border-primary/50`}
         style={{ transform: "translateZ(0)" }}
       >
         {/* Shine Effect (Desktop only) */}
@@ -113,7 +156,10 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
         />
 
         {/* Project Image Container */}
-        <div className="aspect-video bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500">
+        <div
+          className={`${isLandscape ? "w-full md:w-[55%] md:h-auto" : "w-full aspect-video"
+            } bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500 shrink-0`}
+        >
 
           {/* Multi-Image Gallery View */}
           {project.gallery ? (
@@ -162,7 +208,7 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
         </div>
 
         {/* Project Info */}
-        <div className="p-6 lg:p-8 space-y-4 flex-1 flex flex-col relative z-20 bg-card/50">
+        <div className={`p-6 lg:p-8 space-y-6 flex-1 flex flex-col relative z-20 bg-card/50 ${isLandscape ? "justify-center" : ""}`}>
           <div className="flex flex-col gap-2">
             {project.featured && (
               <span className="text-xs font-mono tracking-widest text-primary uppercase inline-block font-semibold">
@@ -174,11 +220,35 @@ const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
             </h3>
           </div>
 
-          <p className="text-muted-foreground font-body leading-relaxed flex-1 text-sm lg:text-base">
+          <p className="text-muted-foreground font-body leading-relaxed text-sm lg:text-base">
             {project.description}
           </p>
 
-          <div className="flex flex-wrap gap-2 pt-2">
+          {/* Detailed Sub-modules (if available) */}
+          {project.details && (
+            <div className={`grid gap-4 mt-2 ${isLandscape ? "xl:grid-cols-2" : ""}`}>
+              {project.details.map((detail, idx) => (
+                <div key={idx} className="bg-background/40 border border-border/50 rounded-lg p-3 hover:bg-background/60 transition-colors">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="p-1.5 rounded-md bg-primary/10 text-primary">
+                      <detail.icon className="w-4 h-4" />
+                    </div>
+                    <h4 className="font-display font-semibold text-sm">{detail.title}</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-2 leading-relaxed">
+                    {detail.role} <span className="text-foreground/80">{detail.features.join(", ")}</span>
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10">
+                      {detail.tech}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-2 pt-2 mt-auto">
             {project.tags.map((tag) => (
               <span
                 key={tag}
@@ -209,9 +279,12 @@ const Projects = () => {
 
         {/* Unified Projects Grid with Stagger Effect */}
         <StaggerContainer className="grid md:grid-cols-2 gap-8 perspective-1000">
-          {projects.map((project) => (
-            <StaggerItem key={project.title} className="h-full">
-              <ProjectCard project={project} />
+          {projects.map((project, index) => (
+            <StaggerItem
+              key={project.title}
+              className={`h-full ${index === 0 ? "md:col-span-2" : ""}`}
+            >
+              <ProjectCard project={project} isLandscape={index === 0} />
             </StaggerItem>
           ))}
         </StaggerContainer>

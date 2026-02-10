@@ -8,7 +8,7 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
-  { label: "Resume", href: "/resume.pdf" },
+
   { label: "Contact", href: "#contact" },
 ];
 
@@ -73,8 +73,8 @@ const Navigation = () => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? "bg-background/70 backdrop-blur-md border-b border-border/50 py-3 shadow-sm"
-          : "bg-transparent py-6"
+        ? "bg-background/70 backdrop-blur-md border-b border-border/50 py-3 shadow-sm"
+        : "bg-transparent py-6"
         }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
