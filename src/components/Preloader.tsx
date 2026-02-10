@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   const [text, setText] = useState("");
-  const fullText = "Ashwin' Portfolio";
+  const fullText = "Ashwin's Portfolio";
 
   useEffect(() => {
     // Reduced total waiting time from 2000ms to 1500ms for a snappier load

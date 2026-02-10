@@ -70,7 +70,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-card/30">
+    <section id="contact" className="section-padding bg-card/30 overflow-hidden">
       <div className="max-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Contact Info */}
@@ -90,16 +90,16 @@ const Contact = () => {
             <ScrollReveal delay={0.1} className="space-y-4 pt-4">
               <a
                 href="mailto:ashwinyadav2408@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 group"
+                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300 group max-w-full"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors shrink-0">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="text-xs text-muted-foreground uppercase tracking-wider">Email</p>
-                  <p className="font-body font-medium text-foreground">ashwinyadav2408@gmail.com</p>
+                  <p className="font-body font-medium text-foreground truncate sm:text-base text-sm">ashwinyadav2408@gmail.com</p>
                 </div>
-                <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
               </a>
             </ScrollReveal>
 
@@ -113,10 +113,10 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <ScrollReveal direction="up" delay={0.2}>
+          <ScrollReveal direction="up" delay={0.2} className="w-full">
             <form
               onSubmit={handleSubmit}
-              className="space-y-6 bg-card border border-border rounded-2xl p-6 lg:p-8"
+              className="w-full space-y-6 bg-card border border-border rounded-2xl p-4 md:p-6 lg:p-8"
             >
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-body font-medium text-foreground ml-1">
@@ -130,7 +130,7 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                     disabled={isSubmitting}
-                    className="input-field disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
+                    className="input-field max-w-full disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
                     placeholder="Your name"
                   />
                   <div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover/input:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -150,7 +150,7 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
                     disabled={isSubmitting}
-                    className="input-field disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
+                    className="input-field max-w-full disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
                     placeholder="your@email.com"
                   />
                   <div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover/input:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -170,7 +170,7 @@ const Contact = () => {
                     required
                     disabled={isSubmitting}
                     rows={5}
-                    className="input-field resize-none disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
+                    className="input-field max-w-full resize-none disabled:opacity-50 pl-6 bg-secondary/30 border-border/50 focus:border-primary/50 transition-all duration-300 group-hover/input:border-primary/30"
                     placeholder="Tell me about your project..."
                   />
                   <div className="absolute inset-0 rounded-xl bg-primary/5 opacity-0 group-hover/input:opacity-100 transition-opacity duration-500 pointer-events-none" />
