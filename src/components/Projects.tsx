@@ -2,6 +2,7 @@ import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
 import gitkaWifiAdminImage from "@/assets/gitkawifi_admin.jpeg";
+import gitkaWifiPcImage from "@/assets/gitkawifi_pc.png";
 import quizGameImage from "@/assets/quiz-game.png";
 import portfolioImage from "@/assets/portfolio-screenshot.png";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -14,8 +15,12 @@ const projects = [
     title: "Git Ka Wifi Ecosystem",
     description: "A complete connectivity suite for GIT Jaipur campus. Includes an automated login client for Windows/Android and a comprehensive Admin Dashboard (Showcase) for network management.",
     tags: ["Python", "Kotlin", "React", "Full Stack Ecosystem"],
-    image: gitkaWifiImage, // Main image (Client)
-    secondaryImage: gitkaWifiAdminImage, // Admin Dashboard
+    image: gitkaWifiPcImage, // Fallback/Main
+    gallery: [
+      { src: gitkaWifiPcImage, label: "Windows PC" },
+      { src: gitkaWifiImage, label: "Android App" },
+      { src: gitkaWifiAdminImage, label: "Admin App" },
+    ],
     featured: true,
     links: [
       { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi", icon: "github" },
@@ -44,7 +49,7 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project }: { project: typeof projects[0] & { secondaryImage?: string } }) => {
+const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -110,36 +115,23 @@ const ProjectCard = ({ project }: { project: typeof projects[0] & { secondaryIma
         {/* Project Image Container */}
         <div className="aspect-video bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500">
 
-          {/* Side-by-Side View for Ecosystem */}
-          {project.secondaryImage ? (
-            <div className="w-full h-full flex border-b border-white/10">
-              {/* Client Side */}
-              <div className="w-1/2 h-full relative border-r border-white/10 group/client overflow-hidden">
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm">
-                  Client
+          {/* Multi-Image Gallery View */}
+          {project.gallery ? (
+            <div className="w-full h-full flex divide-x divide-white/10">
+              {project.gallery.map((item, index) => (
+                <div key={index} className="flex-1 h-full relative group/item overflow-hidden">
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm whitespace-nowrap">
+                    {item.label}
+                  </div>
+                  <div className="w-full h-full p-2 flex items-center justify-center">
+                    <img
+                      src={item.src}
+                      alt={`${project.title} - ${item.label}`}
+                      className="w-full h-full object-contain transition-transform duration-700 group-hover/item:scale-110"
+                    />
+                  </div>
                 </div>
-                <div className="w-full h-full p-2 flex items-center justify-center">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} - Client App`}
-                    className="w-full h-full object-contain transition-transform duration-700 group-hover/client:scale-110"
-                  />
-                </div>
-              </div>
-
-              {/* Admin Side */}
-              <div className="w-1/2 h-full relative group/admin overflow-hidden">
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm">
-                  Admin
-                </div>
-                <div className="w-full h-full p-2 flex items-center justify-center">
-                  <img
-                    src={project.secondaryImage}
-                    alt={`${project.title} - Admin App`}
-                    className="w-full h-full object-contain transition-transform duration-700 group-hover/admin:scale-110"
-                  />
-                </div>
-              </div>
+              ))}
             </div>
           ) : (
             /* Standard Single Image View */
