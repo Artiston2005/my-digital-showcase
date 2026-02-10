@@ -113,7 +113,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <ScrollReveal direction="left" delay={0.2}>
+          <ScrollReveal direction="up" delay={0.2}>
             <form
               onSubmit={handleSubmit}
               className="space-y-6 bg-card border border-border rounded-2xl p-6 lg:p-8"
