@@ -20,10 +20,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
+
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          
+
           {/* Global Theme Visual Effects */}
           <ThemeEffects />
 
@@ -41,6 +42,7 @@ const App = () => {
             </BrowserRouter>
           )}
         </TooltipProvider>
+
       </ThemeProvider>
     </QueryClientProvider>
   );

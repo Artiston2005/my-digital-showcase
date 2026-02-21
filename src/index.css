@@ -6,11 +6,10 @@
 @layer base {
   :root {
     /* Default (Dark Premium) */
-    --background: 240 10% 4%;
-    /* Deeper, richer black */
+    --background: 240 5% 3%; /* Deeper, almost black */
     --foreground: 0 0% 98%;
 
-    --primary: 20 90% 60%;
+    --primary: 26 95% 60%; /* Slightly more vibrant orange */
     /* Vibrant Orange-Red */
     --primary-foreground: 0 0% 98%;
 
@@ -223,6 +222,10 @@
 
   .section-description {
     @apply text-muted-foreground font-body text-lg lg:text-xl leading-relaxed max-w-2xl;
+  }
+
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
   }
 }
 
