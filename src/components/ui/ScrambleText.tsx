@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const ScrambleText = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
     const [displayText, setDisplayText] = useState(text);
     // Using a mix of uppercase, lowercase and special chars for a "matrix" feel, but cleaner
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const CHARACTERS = "10_{}[]()*&^%$#@!<>?/|~0123456789ABCDEF";
 
     const requestRef = useRef<number>();
     const startTimeRef = useRef<number>();
@@ -40,7 +40,7 @@ export const ScrambleText = ({ text, className, delay = 0 }: { text: string, cla
                 .map((char, index) => {
                     if (index < revealCount) return char;
                     if (char === " ") return " ";
-                    return chars[Math.floor(Math.random() * chars.length)];
+                    return CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
                 })
                 .join("");
 

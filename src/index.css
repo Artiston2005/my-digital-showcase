@@ -5,43 +5,43 @@
 
 @layer base {
   :root {
-    /* Default (Cyber-Neural Dark) */
-    --background: 240 10% 4%;
-    /* Deep Space */
-    --foreground: 0 0% 98%;
+    /* Vibe Coder (Aesthetic Midnight) */
+    --background: 260 25% 5%;
+    /* Deep Indigo Midnight */
+    --foreground: 280 20% 98%;
 
-    --primary: 190 100% 50%;
+    --primary: 320 80% 60%;
+    /* Hot Neon Pink */
+    --primary-foreground: 260 25% 5%;
+
+    --secondary: 280 60% 15%;
+    /* Deep Violet */
+    --secondary-foreground: 190 100% 50%;
     /* Electric Cyan */
-    --primary-foreground: 240 10% 4%;
-    /* Dark contrast for cyan */
 
-    --secondary: 240 8% 12%;
-    --secondary-foreground: 130 100% 50%;
-    /* Matrix Green for tech details */
+    --muted: 260 20% 12%;
+    --muted-foreground: 280 15% 70%;
 
-    --muted: 240 6% 14%;
-    --muted-foreground: 240 5% 65%;
-
-    --accent: 280 100% 60%;
-    /* Neon Purple (AI/Neural motif) */
-    --accent-foreground: 0 0% 98%;
+    --accent: 190 100% 50%;
+    /* Electric Cyan */
+    --accent-foreground: 260 25% 5%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 6% 16%;
-    --input: 240 6% 16%;
-    --ring: 190 100% 50%;
+    --border: 280 50% 20%;
+    --input: 260 30% 15%;
+    --ring: 320 80% 60%;
 
-    --radius: 0.5rem;
-    /* Sharper edges for tech look */
+    --radius: 1rem;
+    /* Soft, pill-like curves */
 
-    --gradient-primary: linear-gradient(135deg, hsl(190, 100%, 50%) 0%, hsl(280, 100%, 60%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(190, 100%, 50%) 0%, hsl(280, 80%, 70%) 50%, hsl(130, 100%, 50%) 100%);
-    --shadow-glow: 0 0 60px hsl(190, 100%, 50%, 0.15);
+    --gradient-primary: linear-gradient(135deg, hsl(320, 80%, 60%) 0%, hsl(190, 100%, 50%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(320, 80%, 60%) 0%, hsl(280, 80%, 60%) 50%, hsl(190, 100%, 50%) 100%);
+    --shadow-glow: 0 0 80px hsl(320, 80%, 60%, 0.25);
 
-    /* Grid Texture replacing noise */
-    --grid-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    /* Smooth Grainy Noise (Lo-fi Vibe) */
+    --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
   }
 
   /* Diwali Theme (Dark Gold Night) */
@@ -137,7 +137,7 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* Background Grid Overlay */
+  /* Lo-Fi Noise Overlay */
   body::before {
     content: "";
     position: fixed;
@@ -145,10 +145,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: var(--grid-pattern);
-    z-index: -1;
+    background-image: var(--noise-pattern);
+    opacity: 0.04;
     pointer-events: none;
-    opacity: 1;
+    z-index: 9999;
     mix-blend-mode: overlay;
   }
 

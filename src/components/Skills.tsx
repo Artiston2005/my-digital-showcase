@@ -29,17 +29,16 @@ export default function Skills() {
                     {skill.category}
                   </h3>
 
-                  <ul className="space-y-3">
+                  <div className="flex flex-wrap gap-2.5">
                     {skill.items.map((item) => (
-                      <li
+                      <span
                         key={item}
-                        className="text-muted-foreground font-body flex items-center gap-3 text-sm cursor-default transition-transform hover:translate-x-1 hover:text-foreground"
+                        className="px-3 py-1.5 bg-background/50 backdrop-blur-md text-foreground/90 font-body text-xs sm:text-sm shadow-sm rounded-full border border-border/40 transition-all hover:bg-primary/20 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_rgba(255,0,255,0.3)] cursor-default"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                         {item}
-                      </li>
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </SpotlightCard>
             </StaggerItem>
@@ -72,8 +71,8 @@ function SpotlightCard({ children }: { children: React.ReactNode }) {
         style={{
           background: useMotionTemplate`
             radial-gradient(
-              500px circle at ${mouseX}px ${mouseY}px,
-              hsl(var(--primary) / 0.15),
+              600px circle at ${mouseX}px ${mouseY}px,
+              hsl(var(--primary) / 0.25),
               transparent 80%
             )
           `,

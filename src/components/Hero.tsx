@@ -61,22 +61,24 @@ const Hero = () => {
         style={{ y: backgroundY }}
       >
         <motion.div
-          className="absolute top-20 -left-40 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] hardware-accelerated mix-blend-screen"
+          className="absolute top-20 -left-40 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[160px] hardware-accelerated mix-blend-screen"
           style={{ x: springX, y: springY }}
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.2, 0.4, 0.2],
+            rotate: [0, 90, 0]
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute bottom-20 -right-40 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[100px] hardware-accelerated mix-blend-screen"
+          className="absolute bottom-20 -right-40 w-[600px] h-[600px] bg-secondary-foreground/20 rounded-full blur-[140px] hardware-accelerated mix-blend-screen"
           style={{ x: useTransform(springX, (val) => val * -1), y: useTransform(springY, (val) => val * -1) }}
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.1, 0.3, 0.1],
+            rotate: [0, -90, 0]
           }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 1 }}
         />
       </motion.div>
 
@@ -84,14 +86,17 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <motion.div className="space-y-8" style={{ y: textY }}>
           <motion.div
-            className="flex items-center gap-3"
+            className="flex items-center gap-4"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="w-12 h-[1px] bg-gradient-to-r from-primary to-transparent" />
-            <p className="text-primary font-mono text-sm tracking-wider uppercase">
-              Welcome
+            <div className="flex gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(255,0,255,0.8)] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_rgba(0,255,255,0.8)] animate-pulse delay-75" />
+            </div>
+            <p className="text-muted-foreground font-body text-sm tracking-wider uppercase font-medium">
+              Vibe_Check: <span className="text-primary font-bold">Passed</span>
             </p>
           </motion.div>
 
@@ -108,15 +113,15 @@ const Hero = () => {
             />
           </div>
 
-          <motion.p
+          <motion.div
             className="text-muted-foreground font-body text-lg sm:text-xl lg:text-2xl max-w-2xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
           >
-            Second year <span className="text-foreground font-medium border-b border-primary/30 pb-0.5">Computer Science & Engineering</span> student
-            at GIT Jaipur. Building innovative software solutions that blend creativity with code.
-          </motion.p>
+            <p className="mb-2">Crafting digital aesthetics & writing code at <span className="text-foreground font-medium border-b border-primary/30 pb-0.5">2 AM</span>.</p>
+            <p className="mb-2">A creative developer obsessed with <span className="text-primary glow-text">beautiful interfaces</span> and smooth interactions.</p>
+          </motion.div>
 
           <motion.div
             className="flex flex-col sm:flex-row sm:items-center gap-6 pt-6"

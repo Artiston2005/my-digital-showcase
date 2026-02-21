@@ -57,21 +57,23 @@ const CustomCursor = () => {
 
     return (
         <>
+            {/* Glowing Orb Cursor */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/50 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
+                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/50 pointer-events-none z-[9999] mix-blend-screen hidden md:block bg-primary/10 shadow-[0_0_20px_rgba(255,0,255,0.4)]"
                 style={{
                     x: cursorXSpring,
                     y: cursorYSpring,
                 }}
                 animate={{
-                    scale: isHovering ? 1.5 : 1,
-                    backgroundColor: isHovering ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                    scale: isHovering ? 2 : 1,
+                    backgroundColor: isHovering ? "rgba(255, 0, 255, 0.2)" : "rgba(255, 0, 255, 0.05)",
+                    boxShadow: isHovering ? "0 0 40px rgba(255,0,255,0.8)" : "0 0 20px rgba(255,0,255,0.4)"
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
             />
 
             <motion.div
-                className="fixed top-0 left-0 w-2 h-2 rounded-full bg-primary pointer-events-none z-[9999] mix-blend-difference hidden md:block"
+                className="fixed top-0 left-0 w-2 h-2 rounded-full bg-foreground pointer-events-none z-[9999] mix-blend-difference hidden md:block shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                 style={{
                     x: innerCursorXSpring,
                     y: innerCursorYSpring,

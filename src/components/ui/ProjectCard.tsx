@@ -57,7 +57,7 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
         >
             <article
                 className={`group relative glass-panel rounded-3xl overflow-hidden h-full flex flex-col ${isLandscape ? "md:flex-row" : ""
-                    } transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/30`}
+                    } transition-all duration-500 hover:shadow-2xl hover:shadow-primary/30 hover:border-primary/40`}
                 style={{ transform: "translateZ(0)" }}
             >
                 {/* Shine Effect (Desktop only) */}
@@ -71,7 +71,7 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                 {/* Project Image Container */}
                 <div
                     className={`${isLandscape ? "w-full md:w-[55%] md:h-auto" : "w-full aspect-video"
-                        } bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500 shrink-0`}
+                        } bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500 shrink-0 border-b md:border-b-0 md:border-r border-border/30`}
                 >
 
                     {/* Multi-Image Gallery View */}
@@ -125,7 +125,7 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                     <div className="flex flex-col gap-2">
                         {project.featured && (
                             <span className="text-xs font-mono tracking-widest text-primary uppercase inline-block font-semibold">
-                                Featured Project
+                                FEATURED_VIBE
                             </span>
                         )}
                         <h3 className="font-display font-bold text-2xl group-hover:text-primary transition-colors tracking-tight">
