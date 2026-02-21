@@ -7,6 +7,8 @@ import { lazy, Suspense, useState } from "react";
 import Preloader from "@/components/Preloader";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeEffects from "@/components/ThemeEffects";
+import CustomCursor from "@/components/ui/CustomCursor";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 // Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
@@ -27,6 +29,8 @@ const App = () => {
 
           {/* Global Theme Visual Effects */}
           <ThemeEffects />
+          <CustomCursor />
+          <ScrollProgress />
 
           {/* Cinematic Preloader */}
           {isLoading ? (

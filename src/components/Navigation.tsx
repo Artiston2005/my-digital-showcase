@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ThemeSelector from "./ThemeSelector";
 import { createPortal } from "react-dom";
+import { MagneticWrapper } from "@/components/ui/MagneticWrapper";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -12,56 +13,48 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const MagneticLink = ({ children, href }: { children: React.ReactNode, href: string }) => {
-  const ref = useRef<HTMLAnchorElement>(null);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
-  const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!ref.current) return;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-
-    x.set((e.clientX - centerX) * 0.3);
-    y.set((e.clientY - centerY) * 0.3);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
+const MagneticLink = ({ children, href, isActive }: { children: React.ReactNode, href: string, isActive: boolean }) => {
   return (
-    <motion.a
-      ref={ref}
-      href={href}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: mouseX, y: mouseY }}
-      className="px-4 py-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors relative group block"
-    >
-      {children}
-      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-    </motion.a>
+    <MagneticWrapper>
+      <a
+        href={href}
+        className={`px-4 py-2 font-body text-sm transition-colors relative group block ${isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"}`}
+      >
+        {children}
+        <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary transition-opacity ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+      </a>
+    </MagneticWrapper>
   );
 };
+
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    // ... (existing scroll effect)
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setIsScrolled(window.scrollY > 50);
+
+          // Spy on active section
+          const sections = navItems.map(item => item.href.substring(1));
+          let current = "";
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 150 && rect.bottom >= 150) {
+                current = section;
+                break;
+              }
+            }
+          }
+          setActiveSection(current);
+
           ticking = false;
         });
         ticking = true;
@@ -109,7 +102,7 @@ const Navigation = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 * index }}
                 >
-                  <MagneticLink href={item.href}>
+                  <MagneticLink href={item.href} isActive={activeSection === item.href.substring(1)}>
                     {item.label}
                   </MagneticLink>
                 </motion.li>

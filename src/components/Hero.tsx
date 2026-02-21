@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ScrambleText } from "@/components/ui/ScrambleText";
+import { MagneticWrapper } from "@/components/ui/MagneticWrapper";
 
 const Hero = () => {
   const ref = useRef(null);
@@ -124,20 +125,24 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
           >
             <div className="flex flex-wrap gap-4">
-              <Button variant="hero" size="xl" asChild className="hover-lift group relative overflow-hidden">
-                <a href="#projects">
-                  <span className="relative z-10">View My Work</span>
-                  <motion.div
-                    className="absolute inset-0 bg-white/20"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="xl" asChild className="hover-lift">
-                <a href="#contact">Get in Touch</a>
-              </Button>
+              <MagneticWrapper>
+                <Button variant="hero" size="xl" asChild className="hover-lift group relative overflow-hidden">
+                  <a href="#projects">
+                    <span className="relative z-10">View My Work</span>
+                    <motion.div
+                      className="absolute inset-0 bg-white/20"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </a>
+                </Button>
+              </MagneticWrapper>
+              <MagneticWrapper>
+                <Button variant="heroOutline" size="xl" asChild className="hover-lift">
+                  <a href="#contact">Get in Touch</a>
+                </Button>
+              </MagneticWrapper>
             </div>
 
             <div className="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-border/50">

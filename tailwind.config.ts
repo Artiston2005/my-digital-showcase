@@ -17,6 +17,7 @@ export default {
       fontFamily: {
         display: ['Syne', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+        mono: ['"Fira Code"', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
