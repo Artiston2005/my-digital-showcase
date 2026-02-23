@@ -7,6 +7,7 @@ const ThemeEffects = () => {
   const [mounted, setMounted] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [showNewYearFireworks, setShowNewYearFireworks] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -14,12 +15,14 @@ const ThemeEffects = () => {
       width: window.innerWidth,
       height: window.innerHeight
     });
+    setIsMobile(window.innerWidth < 768);
 
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight
       });
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener('resize', handleResize);
@@ -31,7 +34,7 @@ const ThemeEffects = () => {
     if (theme === "newyear") {
       const timer = setTimeout(() => {
         setShowNewYearFireworks(true);
-      }, 2500); 
+      }, 2500);
       return () => clearTimeout(timer);
     } else {
       setShowNewYearFireworks(false);
@@ -44,7 +47,7 @@ const ThemeEffects = () => {
   if (theme === "christmas") {
     return (
       <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
-        {[...Array(40)].map((_, i) => (
+        {[...Array(isMobile ? 15 : 40)].map((_, i) => (
           <motion.div
             key={`snow-${i}`}
             className="absolute bg-white rounded-full opacity-60"
@@ -76,10 +79,10 @@ const ThemeEffects = () => {
   // --- NEW YEAR EFFECT (Optimized) ---
   if (theme === "newyear") {
     const colors = ["#FFD700", "#FF00FF", "#00FFFF", "#FF3333", "#33FF33"];
-    
+
     return (
       <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden flex items-center justify-center">
-        
+
         {/* 1. Background Watermark (Static, low opacity) */}
         <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none z-[0]">
           <div className="flex flex-col items-center">
@@ -93,7 +96,7 @@ const ThemeEffects = () => {
         </div>
 
         {/* 2. Fireworks (Simple burst, low particle count) */}
-        {showNewYearFireworks && (
+        {showNewYearFireworks && !isMobile && (
           <div className="absolute inset-0 z-0">
             {/* Reduced from 4 to 2 */}
             {[...Array(2)].map((_, i) => (
@@ -108,7 +111,7 @@ const ThemeEffects = () => {
                 animate={{
                   y: [windowSize.height, windowSize.height * (0.2 + Math.random() * 0.5)],
                   opacity: [1, 1, 0],
-                  scale: [0, 1, 2.5], 
+                  scale: [0, 1, 2.5],
                 }}
                 transition={{
                   duration: 2.5,
@@ -138,7 +141,7 @@ const ThemeEffects = () => {
         {/* 3. Falling Confetti (Reduced count) */}
         <div className="absolute inset-0 z-0">
           {/* Reduced from 30 to 12 */}
-          {[...Array(12)].map((_, i) => (
+          {[...Array(isMobile ? 6 : 12)].map((_, i) => (
             <motion.div
               key={`confetti-fall-${i}`}
               className="absolute"
@@ -176,7 +179,7 @@ const ThemeEffects = () => {
     return (
       <div className="fixed inset-0 pointer-events-none z-[0] overflow-hidden">
         {/* Reduced from 5 to 2 */}
-        {[...Array(2)].map((_, i) => (
+        {!isMobile && [...Array(2)].map((_, i) => (
           <motion.div
             key={`firework-${i}`}
             className="absolute"
@@ -212,10 +215,10 @@ const ThemeEffects = () => {
           </motion.div>
         ))}
         <div className="absolute top-0 left-4 md:left-10 animate-pulse origin-top z-0">
-           <DiyaIcon className="w-12 h-12 md:w-16 md:h-16 text-orange-500 drop-shadow-[0_0_15px_rgba(255,165,0,0.8)]" />
+          <DiyaIcon className="w-12 h-12 md:w-16 md:h-16 text-orange-500 drop-shadow-[0_0_15px_rgba(255,165,0,0.8)]" />
         </div>
         <div className="absolute top-0 right-4 md:right-10 animate-pulse delay-700 origin-top z-0">
-           <DiyaIcon className="w-12 h-12 md:w-16 md:h-16 text-orange-500 drop-shadow-[0_0_15px_rgba(255,165,0,0.8)]" />
+          <DiyaIcon className="w-12 h-12 md:w-16 md:h-16 text-orange-500 drop-shadow-[0_0_15px_rgba(255,165,0,0.8)]" />
         </div>
       </div>
     );

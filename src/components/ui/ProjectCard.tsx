@@ -51,11 +51,17 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
     }, [scrollYProgress, handleScrollScrub, project.lottieAnimation]);
 
     useEffect(() => {
-        const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+        const checkMobile = () => {
+            const mobile = window.matchMedia("(max-width: 768px)").matches;
+            setIsMobile(mobile);
+            if (mobile && project.lottieAnimation) {
+                setImagesRevealed(true); // Skip Lottie on mobile for performance
+            }
+        };
         checkMobile();
         window.addEventListener("resize", checkMobile);
         return () => window.removeEventListener("resize", checkMobile);
-    }, []);
+    }, [project.lottieAnimation]);
 
     const x = useMotionValue(0);
     const y = useMotionValue(0);
