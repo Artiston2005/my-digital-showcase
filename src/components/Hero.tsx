@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from "fram
 import { useRef, useState, useEffect } from "react";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 import { MagneticWrapper } from "@/components/ui/MagneticWrapper";
+import { LottiePlayer } from "@/components/ui/LottiePlayer";
+// import sampleAnimation from "@/assets/lottie/sample.json"; // <--- Add your downloaded .json file here
 
 const Hero = () => {
   const ref = useRef(null);
@@ -112,6 +114,18 @@ const Hero = () => {
               delay={400}
             />
           </div>
+
+          {/* -- LOTTIE ANIMATION EXAMPLE -- */}
+          {/* Uncomment the code below and the import above once you have a Lottie JSON file */}
+          {/* <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="absolute top-0 right-10 w-64 h-64 pointer-events-none opacity-50 hidden lg:block"
+          >
+            <LottiePlayer animationData={sampleAnimation} loop={true} autoplay={true} />
+            {/* Or fetch directly from a URL: <LottiePlayer url="https://assetsX.lottiefiles.com/.../anim.json" /> *\/}
+          </motion.div> */}
 
           <motion.div
             className="text-muted-foreground font-body text-lg sm:text-xl lg:text-2xl max-w-2xl leading-relaxed"

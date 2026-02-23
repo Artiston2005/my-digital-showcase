@@ -1,12 +1,54 @@
 import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Project } from "@/data/projects";
+import { LottiePlayer, LottiePlayerHandle } from "@/components/ui/LottiePlayer";
 
 const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLandscape?: boolean }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const lottieRef = useRef<LottiePlayerHandle>(null);
     const [isMobile, setIsMobile] = useState(false);
+    const [imagesRevealed, setImagesRevealed] = useState(!project.lottieAnimation);
+    const [skipTransition, setSkipTransition] = useState(false);
+    const lastProgressRef = useRef(0);
+
+    // Scroll-scrub: track how far the card has traveled through the viewport
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start 0.85", "start 0.4"], // animation plays while card travels from bottom of viewport to upper-middle area
+    });
+
+    // Scrub the Lottie animation frame based on scroll progress
+    const handleScrollScrub = useCallback(() => {
+        if (!project.lottieAnimation || !lottieRef.current) return;
+        if (!lottieRef.current.isReady) return;
+
+        const progress = scrollYProgress.get();
+        const totalFrames = lottieRef.current.totalFrames;
+        if (totalFrames <= 0) return;
+
+        // Detect fast scrolling (progress jumped > 0.3 in one frame)
+        const delta = Math.abs(progress - lastProgressRef.current);
+        lastProgressRef.current = progress;
+        const isFastScroll = delta > 0.3;
+
+        const animProgress = Math.min(progress / 0.9, 1);
+        const frame = Math.floor(animProgress * (totalFrames - 1));
+        lottieRef.current.goToFrame(frame);
+
+        // Reveal images once animation completes
+        if (animProgress >= 1 && !imagesRevealed) {
+            if (isFastScroll) setSkipTransition(true); // instant reveal for fast scrollers
+            setImagesRevealed(true);
+        }
+    }, [project.lottieAnimation, scrollYProgress, imagesRevealed]);
+
+    useEffect(() => {
+        if (!project.lottieAnimation) return;
+        const unsubscribe = scrollYProgress.on("change", handleScrollScrub);
+        return () => unsubscribe();
+    }, [scrollYProgress, handleScrollScrub, project.lottieAnimation]);
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
@@ -53,7 +95,7 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                 rotateY: isMobile ? 0 : rotateY,
                 transformStyle: "preserve-3d",
             }}
-            className="h-full"
+            className="h-full relative"
         >
             <article
                 className={`group relative glass-panel rounded-3xl overflow-hidden h-full flex flex-col ${isLandscape ? "md:flex-row" : ""
@@ -73,37 +115,62 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                     className={`${isLandscape ? "w-full md:w-[55%] md:h-auto" : "w-full aspect-video"
                         } bg-black/40 relative overflow-hidden group-hover:shadow-inner transition-shadow duration-500 shrink-0 border-b md:border-b-0 md:border-r border-border/30`}
                 >
-
-                    {/* Multi-Image Gallery View */}
-                    {project.gallery ? (
-                        <div className="w-full h-full flex divide-x divide-white/10">
-                            {project.gallery.map((item, index) => (
-                                <div key={index} className="flex-1 h-full relative group/item overflow-hidden">
-                                    <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm whitespace-nowrap">
-                                        {item.label}
-                                    </div>
-                                    <div className="w-full h-full p-2 flex items-center justify-center">
-                                        <img
-                                            src={item.src}
-                                            alt={`${project.title} - ${item.label}`}
-                                            className="w-full h-full object-contain transition-transform duration-700 group-hover/item:scale-110"
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        /* Standard Single Image View */
-                        <div className="w-full h-full p-4 flex items-center justify-center">
-                            <img
-                                src={project.image}
-                                alt={project.title}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-contain transition-all duration-700 group-hover:scale-105"
+                    {/* Scroll-scrubbed Lottie layer (behind images) */}
+                    {project.lottieAnimation && (
+                        <motion.div
+                            className="absolute inset-0 flex items-center justify-center z-0"
+                            style={{
+                                opacity: imagesRevealed ? 0 : 1,
+                                transition: "opacity 1.2s ease-in-out",
+                            }}
+                        >
+                            <LottiePlayer
+                                ref={lottieRef}
+                                animationData={project.lottieAnimation}
+                                className="w-2/3 max-w-[280px]"
+                                autoplay={false}
+                                loop={false}
                             />
-                        </div>
+                        </motion.div>
                     )}
+
+                    {/* Project images — fade in once scroll-scrub animation completes */}
+                    <div
+                        className="relative w-full h-full z-10"
+                        style={{
+                            opacity: imagesRevealed ? 1 : 0,
+                            transition: skipTransition ? "none" : "opacity 1.2s ease-in-out",
+                        }}
+                    >
+                        {project.gallery ? (
+                            <div className="w-full h-full flex divide-x divide-white/10">
+                                {project.gallery.map((item, index) => (
+                                    <div key={index} className="flex-1 h-full relative group/item overflow-hidden">
+                                        <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono text-white pointer-events-none z-20 border border-white/10 shadow-sm whitespace-nowrap">
+                                            {item.label}
+                                        </div>
+                                        <div className="w-full h-full p-2 flex items-center justify-center">
+                                            <img
+                                                src={item.src}
+                                                alt={`${project.title} - ${item.label}`}
+                                                className="w-full h-full object-contain transition-transform duration-700 group-hover/item:scale-110"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="w-full h-full p-4 flex items-center justify-center">
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-contain transition-all duration-700 group-hover:scale-105"
+                                />
+                            </div>
+                        )}
+                    </div>
 
                     {/* Buttons Overlay */}
                     <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-[2px] z-20 pointer-events-none">

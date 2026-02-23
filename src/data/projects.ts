@@ -4,6 +4,9 @@ import gitkaWifiAdminImage from "@/assets/gitkawifi_admin.jpeg";
 import gitkaWifiPcImage from "@/assets/gitkawifi_pc.png";
 import quizGameImage from "@/assets/quiz-game.png";
 import portfolioImage from "@/assets/portfolio-screenshot.png";
+import wifiScanLottie from "@/assets/anim_wifi_scan.json";
+import quizGameLottie from "@/assets/anim_quiz_game.json";
+import portfolioLottie from "@/assets/anim_portfolio.json";
 
 export interface ProjectDetail {
     title: string;
@@ -22,6 +25,7 @@ export interface Project {
     featured: boolean;
     links: { label: string; url: string; icon: string }[];
     details?: ProjectDetail[];
+    lottieAnimation?: unknown;
 }
 
 export const projects: Project[] = [
@@ -63,6 +67,7 @@ export const projects: Project[] = [
             { label: "Windows", url: "https://github.com/Artiston2005/git-ka-wifi", icon: "github" },
             { label: "Android", url: "https://github.com/Artiston2005/git-ka-wifi-android/releases", icon: "github" },
         ],
+        lottieAnimation: wifiScanLottie,
     },
     {
         title: "Quiz Game",
@@ -73,6 +78,7 @@ export const projects: Project[] = [
         links: [
             { label: "GitHub", url: "https://github.com/Artiston2005/Quiz-Game-Project", icon: "github" },
         ],
+        lottieAnimation: quizGameLottie,
     },
     {
         title: "Portfolio Website",
@@ -83,5 +89,6 @@ export const projects: Project[] = [
         links: [
             { label: "Live Site", url: "https://my-digital-showcase-nine.vercel.app", icon: "external" },
         ],
+        lottieAnimation: portfolioLottie,
     },
 ];
