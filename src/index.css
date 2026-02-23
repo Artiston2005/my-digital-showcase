@@ -5,43 +5,43 @@
 
 @layer base {
   :root {
-    /* Vibe Coder (Aesthetic Midnight) */
-    --background: 260 25% 5%;
-    /* Deep Indigo Midnight */
-    --foreground: 280 20% 98%;
+    /* Vibe Coder (Sleek Aesthetic & AI Magic) */
+    --background: 0 0% 2%;
+    /* Almost pitch black for high contrast */
+    --foreground: 0 0% 98%;
 
-    --primary: 320 80% 60%;
-    /* Hot Neon Pink */
-    --primary-foreground: 260 25% 5%;
+    --primary: 260 100% 65%;
+    /* Magical Purple */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 280 60% 15%;
-    /* Deep Violet */
-    --secondary-foreground: 190 100% 50%;
-    /* Electric Cyan */
+    --secondary: 0 0% 7%;
+    /* Very dark gray for sleek cards */
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 260 20% 12%;
-    --muted-foreground: 280 15% 70%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 190 100% 50%;
-    /* Electric Cyan */
-    --accent-foreground: 260 25% 5%;
+    --accent: 190 100% 55%;
+    /* Luminous Cyan */
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 280 50% 20%;
-    --input: 260 30% 15%;
-    --ring: 320 80% 60%;
+    --border: 0 0% 12%;
+    /* Subtle minimal borders */
+    --input: 0 0% 10%;
+    --ring: 260 100% 65%;
 
-    --radius: 1rem;
-    /* Soft, pill-like curves */
+    --radius: 1.5rem;
+    /* Extremely rounded, soft and friendly */
 
-    --gradient-primary: linear-gradient(135deg, hsl(320, 80%, 60%) 0%, hsl(190, 100%, 50%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(320, 80%, 60%) 0%, hsl(280, 80%, 60%) 50%, hsl(190, 100%, 50%) 100%);
-    --shadow-glow: 0 0 80px hsl(320, 80%, 60%, 0.25);
+    --gradient-primary: linear-gradient(135deg, hsl(260, 100%, 65%) 0%, hsl(190, 100%, 55%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(260, 100%, 65%) 0%, hsl(320, 100%, 65%) 50%, hsl(190, 100%, 55%) 100%);
+    --shadow-glow: 0 0 100px hsl(260, 100%, 65%, 0.15);
 
-    /* Smooth Grainy Noise (Lo-fi Vibe) */
-    --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    /* Very subtle lo-fi noise for texture but kept minimal */
+    --noise-pattern: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   }
 
   /* Diwali Theme (Dark Gold Night) */

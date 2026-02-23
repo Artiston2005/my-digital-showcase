@@ -71,7 +71,7 @@ const Hero = () => {
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute bottom-20 -right-40 w-[600px] h-[600px] bg-secondary-foreground/20 rounded-full blur-[140px] hardware-accelerated mix-blend-screen"
+          className="absolute bottom-20 -right-40 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[140px] hardware-accelerated mix-blend-screen"
           style={{ x: useTransform(springX, (val) => val * -1), y: useTransform(springY, (val) => val * -1) }}
           animate={{
             scale: [1, 1.2, 1],
