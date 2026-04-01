@@ -2,6 +2,7 @@ import { Smartphone, Shield, Monitor } from "lucide-react";
 import gitkaWifiImage from "@/assets/gitkawifi.jpeg";
 import gitkaWifiAdminImage from "@/assets/gitkawifi_admin.jpeg";
 import gitkaWifiPcImage from "@/assets/gitkawifi_pc.png";
+import rtukagyanImage from "@/assets/RTUKagyan.png";
 import quizGameImage from "@/assets/quiz-game.png";
 import portfolioImage from "@/assets/portfolio-screenshot.png";
 import wifiScanLottie from "@/assets/anim_wifi_scan.json";
@@ -68,6 +69,14 @@ export const projects: Project[] = [
             { label: "Android", url: "https://github.com/Artiston2005/git-ka-wifi-android/releases", icon: "github" },
         ],
         lottieAnimation: wifiScanLottie,
+    },
+    {
+        title: "RTUKaGyan",
+        description: "A web-based RTU student learning dashboard that loads branch, year, semester, and subject data from Supabase/RTUPedia, then builds an AI-generated study roadmap and quiz questions. It includes sign-in, usage limits, AI session management, and study and quiz workflows with Pomodoro-style planning and knowledge checks.",
+        tags: ["RTU", "Supabase", "AI", "Study Dashboard"],
+        image: rtukagyanImage,
+        featured: false,
+        links: [],
     },
     {
         title: "Quiz Game",
