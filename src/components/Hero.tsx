@@ -93,12 +93,11 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="flex gap-2">
-              <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(255,0,255,0.8)] animate-pulse" />
-              <span className="w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_rgba(0,255,255,0.8)] animate-pulse delay-75" />
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             </div>
             <p className="text-muted-foreground font-body text-sm tracking-wider uppercase font-medium">
-              Vibe_Check: <span className="text-primary font-bold">Passed</span>
+              Status: <span className="text-foreground font-bold">Available for work</span>
             </p>
           </motion.div>
 
