@@ -79,14 +79,17 @@ const Navigation = () => {
     <>
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? "bg-background/70 backdrop-blur-md border-b border-border/50 py-3 shadow-sm"
-          : "bg-transparent py-6"
+          ? "bg-background/70 backdrop-blur-md border-b border-border/50 shadow-sm"
+          : "bg-transparent"
           }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+        <div className="md:hidden w-full bg-primary/10 border-b border-primary/20 text-primary text-[10px] sm:text-xs font-mono tracking-widest uppercase text-center py-1.5 backdrop-blur-md">
+          * Best experienced on desktop *
+        </div>
+        <nav className={`max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between transition-all duration-500 ${isScrolled ? "py-3" : "py-6"}`}>
           {/* Updated Logo */}
           <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text relative z-50 tracking-tight">
             Ashwin Yadav

@@ -85,7 +85,7 @@ const Hero = () => {
       </motion.div>
 
       {/* --- MAIN CONTENT --- */}
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      <div className="max-w-7xl mx-auto w-full relative z-10 pt-24 md:pt-0">
         <motion.div className="space-y-8" style={{ y: textY }}>
           <motion.div
             className="flex items-center gap-4"
@@ -182,18 +182,6 @@ const Hero = () => {
               ))}
             </div>
           </motion.div>
-
-          {/* Mobile-only Notice */}
-          {isMobile && (
-            <motion.div
-              className="mt-4 text-xs font-mono text-primary/70 tracking-widest uppercase"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5, duration: 1 }}
-            >
-              * Best experienced on desktop *
-            </motion.div>
-          )}
         </motion.div>
       </div>
 
