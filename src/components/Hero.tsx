@@ -64,7 +64,7 @@ const Hero = () => {
       >
         <motion.div
           className="absolute top-20 -left-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary/20 rounded-full blur-[80px] md:blur-[160px] hardware-accelerated md:mix-blend-screen"
-          style={{ x: isMobile ? 0 : springX, y: isMobile ? 0 : springY }}
+          style={{ x: springX, y: springY }}
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.2, 0.4, 0.2],
@@ -74,7 +74,7 @@ const Hero = () => {
         />
         <motion.div
           className="absolute bottom-20 -right-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-accent/20 rounded-full blur-[70px] md:blur-[140px] hardware-accelerated md:mix-blend-screen"
-          style={{ x: isMobile ? 0 : useTransform(springX, (val) => val * -1), y: isMobile ? 0 : useTransform(springY, (val) => val * -1) }}
+          style={{ x: useTransform(springX, (val) => val * -1), y: useTransform(springY, (val) => val * -1) }}
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.1, 0.3, 0.1],
