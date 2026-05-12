@@ -39,37 +39,29 @@ const Navigation = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setIsScrolled(window.scrollY > 50);
+
+          // Spy on active section
+          const sections = navItems.map(item => item.href.substring(1));
+          let current = "";
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 150 && rect.bottom >= 150) {
+                current = section;
+                break;
+              }
+            }
+          }
+          setActiveSection(current);
+
           ticking = false;
         });
         ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    // Use Intersection Observer instead of getBoundingClientRect for active section tracking
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the visible section with highest intersection ratio
-        const visibleSections = entries.filter((entry) => entry.isIntersecting);
-        if (visibleSections.length > 0) {
-          // Sort by intersection ratio to get the most prominent section
-          visibleSections.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-          setActiveSection(visibleSections[0].target.id);
-        }
-      },
-      { rootMargin: "-20% 0px -60% 0px", threshold: [0.1, 0.5, 0.9] }
-    );
-
-    const sections = navItems.map(item => item.href.substring(1));
-    sections.forEach((section) => {
-      const element = document.getElementById(section);
-      if (element) observer.observe(element);
-    });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {

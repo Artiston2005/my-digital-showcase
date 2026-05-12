@@ -55,7 +55,6 @@ function SpotlightCard({ children }: { children: React.ReactNode }) {
   const mouseY = useMotionValue(0);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    if (window.innerWidth < 768) return; // Prevent heavy layout thrashing on mobile
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -68,7 +67,7 @@ function SpotlightCard({ children }: { children: React.ReactNode }) {
     >
       {/* Spotlight Gradient Layer */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 md:group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(

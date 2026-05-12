@@ -179,10 +179,10 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                     </div>
 
                     {/* Buttons Overlay */}
-                    <div className="absolute inset-x-0 bottom-0 top-auto md:top-0 md:inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent md:bg-background/60 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex items-end md:items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-[2px] z-20 pointer-events-none pb-6 md:pb-4">
+                    <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3 flex-wrap p-4 backdrop-blur-[2px] z-20 pointer-events-none">
                         <div className="pointer-events-auto flex gap-2 flex-wrap justify-center">
                             {project.links.map((link) => (
-                                <Button key={link.label} variant="hero" size="sm" asChild className="translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300 shadow-md">
+                                <Button key={link.label} variant="hero" size="sm" asChild className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                     <a href={link.url} target="_blank" rel="noopener noreferrer" className="gap-2">
                                         {link.icon === "external" ? <ExternalLink className="w-4 h-4" /> : <Github className="w-4 h-4" />}
                                         {link.label}
