@@ -76,7 +76,9 @@ export const projects: Project[] = [
         tags: ["RTU", "Supabase", "AI", "Study Dashboard"],
         image: rtukagyanImage,
         featured: false,
-        links: [],
+        links: [
+            { label: "GitHub", url: "https://github.com/Artiston2005/RTU-Quiz", icon: "github" }
+        ],
     },
     {
         title: "Quiz Game",
