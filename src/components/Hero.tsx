@@ -182,6 +182,18 @@ const Hero = () => {
               ))}
             </div>
           </motion.div>
+
+          {/* Mobile-only Notice */}
+          {isMobile && (
+            <motion.div
+              className="mt-4 text-xs font-mono text-primary/70 tracking-widest uppercase"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5, duration: 1 }}
+            >
+              * Best experienced on desktop *
+            </motion.div>
+          )}
         </motion.div>
       </div>
 
