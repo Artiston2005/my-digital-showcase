@@ -63,7 +63,7 @@ const Hero = () => {
         style={{ y: backgroundY }}
       >
         <motion.div
-          className="absolute top-20 -left-40 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[160px] hardware-accelerated mix-blend-screen"
+          className="absolute top-20 -left-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-primary/20 rounded-full blur-[80px] md:blur-[160px] hardware-accelerated md:mix-blend-screen"
           style={{ x: springX, y: springY }}
           animate={{
             scale: [1, 1.1, 1],
@@ -73,7 +73,7 @@ const Hero = () => {
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute bottom-20 -right-40 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[140px] hardware-accelerated mix-blend-screen"
+          className="absolute bottom-20 -right-40 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-accent/20 rounded-full blur-[70px] md:blur-[140px] hardware-accelerated md:mix-blend-screen"
           style={{ x: useTransform(springX, (val) => val * -1), y: useTransform(springY, (val) => val * -1) }}
           animate={{
             scale: [1, 1.2, 1],
@@ -101,7 +101,7 @@ const Hero = () => {
             </p>
           </motion.div>
 
-          <div className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl xl:text-9xl tracking-tight leading-[0.9]">
+          <div className="font-display font-bold text-5xl min-[320px]:text-6xl sm:text-7xl lg:text-8xl xl:text-9xl tracking-tight leading-[0.9] break-words">
             <ScrambleText
               text="Ashwin"
               className="block gradient-text-hero cursor-default"
@@ -142,9 +142,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
           >
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col min-[400px]:flex-row flex-wrap gap-4 w-full sm:w-auto">
               <MagneticWrapper>
-                <Button variant="hero" size="xl" asChild className="hover-lift group relative overflow-hidden">
+                <Button variant="hero" size="xl" asChild className="hover-lift group relative overflow-hidden w-full min-[400px]:w-auto">
                   <a href="#projects">
                     <span className="relative z-10">View My Work</span>
                     <motion.div
@@ -157,13 +157,13 @@ const Hero = () => {
                 </Button>
               </MagneticWrapper>
               <MagneticWrapper>
-                <Button variant="heroOutline" size="xl" asChild className="hover-lift">
+                <Button variant="heroOutline" size="xl" asChild className="hover-lift w-full min-[400px]:w-auto">
                   <a href="#contact">Get in Touch</a>
                 </Button>
               </MagneticWrapper>
             </div>
 
-            <div className="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-border/50">
+            <div className="flex items-center justify-center sm:justify-start gap-5 sm:ml-4 sm:pl-4 sm:border-l sm:border-border/50 w-full sm:w-auto mt-4 sm:mt-0">
               {[
                 { Icon: Github, href: "https://github.com/Artiston2005" },
                 { Icon: Linkedin, href: "https://www.linkedin.com/in/ashwin-yadav-1704a1248" }
