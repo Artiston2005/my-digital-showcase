@@ -63,7 +63,7 @@ const About = () => {
             
             {/* Stats */}
             <ScrollReveal direction="up" delay={0.3}>
-              <div className="grid grid-cols-3 gap-6 pt-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-6">
                 {stats.map((stat) => (
                   <div 
                     key={stat.label}
@@ -72,7 +72,7 @@ const About = () => {
                     <p className="font-display font-bold text-3xl lg:text-4xl gradient-text">
                       {stat.value}
                     </p>
-                    <p className="text-muted-foreground text-sm mt-1">{stat.label}</p>
+                    <p className="text-muted-foreground text-xs md:text-sm mt-1">{stat.label}</p>
                   </div>
                 ))}
               </div>
