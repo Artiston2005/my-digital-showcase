@@ -13,26 +13,28 @@ const SectionFallback = () => <div className="min-h-[200px]" />;
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navigation />
       <main>
         <Hero />
-        <Suspense fallback={<SectionFallback />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <Projects />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <Skills />
-        </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <Contact />
-        </Suspense>
+        <div className="relative z-20 bg-background shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+          <Suspense fallback={<SectionFallback />}>
+            <About />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Contact />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Footer />
+          </Suspense>
+        </div>
       </main>
-      <Suspense fallback={<SectionFallback />}>
-        <Footer />
-      </Suspense>
     </div>
   );
 };

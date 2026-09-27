@@ -29,12 +29,13 @@
     --input: 0 0% 18%;
     --ring: 160 100% 45%;
 
-    --radius: 0.25rem; /* Sharper edges for hardware feel */
+    --radius: 1rem; /* Soft, organic edges */
 
     /* Hard tech gradients (No blue/purple AI vibes) */
     --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00b359 100%);
     --gradient-hero: linear-gradient(135deg, #ffffff 0%, #00ff88 100%);
-    --shadow-glow: 0 0 30px rgba(0, 255, 136, 0.2);
+    /* Soft, diffuse, warm drop-shadows */
+    --shadow-glow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 245, 230, 0.05);
 
     /* Grid pattern for background */
     --noise-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20zM20 0h20v20H20V0zM0 0h20v20H0V0z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");

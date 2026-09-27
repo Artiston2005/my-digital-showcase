@@ -196,11 +196,23 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                 {/* Project Info */}
                 <div className={`p-6 lg:p-10 space-y-6 flex-1 flex flex-col relative z-20 ${isLandscape ? "justify-center" : ""}`}>
                     <div className="flex flex-col gap-2">
-                        {project.featured && (
-                            <span className="text-xs font-mono tracking-widest text-primary uppercase inline-block font-semibold">
-                                {`[System.Module.Featured]`}
-                            </span>
-                        )}
+                        <div className="flex items-center justify-between flex-wrap gap-2">
+                            {project.featured && (
+                                <span className="text-xs font-mono tracking-widest text-primary uppercase inline-block font-semibold">
+                                    {`[System.Module.Featured]`}
+                                </span>
+                            )}
+                            
+                            {project.title === "HeyGIT Network Ecosystem" && (
+                                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-destructive/10 border border-destructive/20 text-destructive text-[10px] sm:text-xs font-mono font-bold shadow-[0_0_15px_rgba(255,0,0,0.2)]">
+                                    <span className="relative flex h-2 w-2">
+                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
+                                      <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
+                                    </span>
+                                    LIVE: 40+ USERS | 100+ REQ/S
+                                </div>
+                            )}
+                        </div>
                         <h3 className="font-display font-bold text-2xl group-hover:text-primary transition-colors tracking-tight">
                             {project.title}
                         </h3>

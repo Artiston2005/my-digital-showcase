@@ -201,7 +201,7 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       onClick={handleTerminalClick}
-      className="rounded-xl overflow-hidden border border-border bg-[#0d0d0f]/90 backdrop-blur-md shadow-[0_0_40px_hsl(var(--primary)/0.15)] w-full max-w-2xl mx-auto h-[400px] flex flex-col cursor-text"
+      className="rounded-2xl overflow-hidden border border-border bg-[#0d0d0f]/90 backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.6)] w-full max-w-2xl mx-auto h-[400px] flex flex-col cursor-text"
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-2 bg-black/40 border-b border-border/50 shrink-0">

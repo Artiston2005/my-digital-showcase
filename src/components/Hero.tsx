@@ -50,16 +50,24 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "100%"]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, 2]);
+  const contentOpacity = useTransform(scrollYProgress, [0.3, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} className="min-h-screen flex flex-col relative overflow-hidden px-6 lg:px-12 selection:bg-primary/20">
-
+    <section ref={ref} className="h-[150vh] md:h-[200vh] relative">
+      <div className="sticky top-0 h-[100dvh] w-full relative overflow-hidden selection:bg-primary/20">
+        <motion.div 
+          className="w-full h-full flex flex-col px-6 lg:px-12 relative"
+          style={{ 
+            scale: contentScale,
+            opacity: contentOpacity,
+            transformOrigin: "center center",
+            willChange: "transform, opacity"
+          }}
+        >
       {/* --- BACKGROUND LAYERS --- */}
       <motion.div
         className="absolute inset-0 overflow-hidden pointer-events-none"
-        style={{ y: backgroundY }}
       >
         <motion.div
           className="absolute top-20 -left-40 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[160px] hardware-accelerated mix-blend-screen"
@@ -84,8 +92,8 @@ const Hero = () => {
       </motion.div>
 
       {/* --- MAIN CONTENT --- */}
-      <div className="max-w-7xl mx-auto my-auto w-full relative z-10 pt-32 pb-24 md:pt-40 md:pb-32 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-        <motion.div className="space-y-6 md:space-y-8" style={{ y: textY }}>
+      <div className="max-w-7xl mx-auto my-auto w-full relative z-10 pt-24 pb-16 md:pt-40 md:pb-32 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        <motion.div className="space-y-4 md:space-y-8">
           <motion.div
             className="flex items-center gap-4"
             initial={{ opacity: 0, x: -20 }}
@@ -224,6 +232,8 @@ const Hero = () => {
           )}
         </a>
       </motion.div>
+      </motion.div>
+      </div>
     </section>
   );
 };

@@ -34,7 +34,7 @@ export interface Project {
 export const projects: Project[] = [
     {
         title: "HeyGIT Network Ecosystem",
-        description: "A comprehensive, multi-platform network ecosystem engineered to automate captive portal Wi-Fi authentication across Android and Windows. It features resilient background session keep-alive, custom local proxy servers for traffic routing, and a dedicated Android Admin dashboard for real-time remote configuration.",
+        description: "A comprehensive, multi-platform network ecosystem engineered to automate captive portal Wi-Fi authentication across Android and Windows. It features resilient background session keep-alive, custom local proxy servers for traffic routing, and a dedicated Android Admin dashboard for real-time remote configuration. Currently handling 40+ concurrent users and actively resolving 100+ network instances every second in real-time.",
         tags: ["Kotlin", "Python", "Firebase", "Sockets", "Android SDK"],
         image: gitkaWifiPcImage,
         gallery: [
