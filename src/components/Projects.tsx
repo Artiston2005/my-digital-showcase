@@ -21,9 +21,9 @@ const Projects = () => {
           {projects.map((project, index) => (
             <StaggerItem
               key={project.title}
-              className={`h-full ${index === 0 ? "md:col-span-2" : ""}`}
+              className="h-full"
             >
-              <ProjectCard project={project} isLandscape={index === 0} />
+              <ProjectCard project={project} isLandscape={false} />
             </StaggerItem>
           ))}
         </StaggerContainer>

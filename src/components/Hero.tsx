@@ -5,8 +5,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from "fram
 import { useRef, useState, useEffect } from "react";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 import { MagneticWrapper } from "@/components/ui/MagneticWrapper";
-import { LottiePlayer } from "@/components/ui/LottiePlayer";
-// import sampleAnimation from "@/assets/lottie/sample.json"; // <--- Add your downloaded .json file here
+import TerminalWindow from "@/components/ui/TerminalWindow";
 
 const Hero = () => {
   const ref = useRef(null);
@@ -85,8 +84,8 @@ const Hero = () => {
       </motion.div>
 
       {/* --- MAIN CONTENT --- */}
-      <div className="max-w-7xl mx-auto w-full relative z-10 pt-24 md:pt-0">
-        <motion.div className="space-y-8" style={{ y: textY }}>
+      <div className="max-w-7xl mx-auto w-full relative z-10 pt-32 pb-16 md:py-0 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        <motion.div className="space-y-6 md:space-y-8" style={{ y: textY }}>
           <motion.div
             className="flex items-center gap-4"
             initial={{ opacity: 0, x: -20 }}
@@ -96,12 +95,12 @@ const Hero = () => {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <p className="text-muted-foreground font-body text-sm tracking-wider uppercase font-medium">
-              Status: <span className="text-foreground font-bold">Available for work</span>
+            <p className="text-muted-foreground font-mono text-xs md:text-sm tracking-wider uppercase font-medium">
+              System.Status = <span className="text-emerald-500 font-bold">"Online"</span>
             </p>
           </motion.div>
 
-          <div className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl xl:text-9xl tracking-tight leading-[0.9]">
+          <div className="font-display font-bold text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-[0.9]">
             <ScrambleText
               text="Ashwin"
               className="block gradient-text-hero cursor-default"
@@ -114,51 +113,33 @@ const Hero = () => {
             />
           </div>
 
-          {/* -- LOTTIE ANIMATION EXAMPLE -- */}
-          {/* Uncomment the code below and the import above once you have a Lottie JSON file */}
-          {/* <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="absolute top-0 right-10 w-64 h-64 pointer-events-none opacity-50 hidden lg:block"
-          >
-            <LottiePlayer animationData={sampleAnimation} loop={true} autoplay={true} />
-            {/* Or fetch directly from a URL: <LottiePlayer url="https://assetsX.lottiefiles.com/.../anim.json" /> *\/}
-          </motion.div> */}
-
           <motion.div
-            className="text-muted-foreground font-body text-lg sm:text-xl lg:text-2xl max-w-2xl leading-relaxed"
+            className="text-muted-foreground font-body text-base sm:text-xl max-w-xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
           >
-            <p className="mb-2">Crafting digital aesthetics & writing code at <span className="text-foreground font-medium border-b border-primary/30 pb-0.5">2 AM</span>.</p>
-            <p className="mb-2">A creative developer obsessed with <span className="text-primary glow-text">beautiful interfaces</span> and smooth interactions.</p>
+            <p className="mb-1 md:mb-2">CSE Student & <span className="text-primary glow-text font-semibold">Systems Engineer</span>.</p>
+            <p className="mb-2">Building high-performance ecosystems. From orchestrating local Agentic AI pipelines to engineering multi-platform network architectures, I bridge the gap between complex backend logic and seamless user experiences.</p>
           </motion.div>
 
           <motion.div
-            className="flex flex-col sm:flex-row sm:items-center gap-6 pt-6"
+            className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 pt-4 md:pt-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
           >
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 md:gap-4">
               <MagneticWrapper>
-                <Button variant="hero" size="xl" asChild className="hover-lift group relative overflow-hidden">
+                <Button variant="hero" size="xl" asChild className="hover-lift group relative overflow-hidden bg-primary text-primary-foreground">
                   <a href="#projects">
-                    <span className="relative z-10">View My Work</span>
-                    <motion.div
-                      className="absolute inset-0 bg-white/20"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: "100%" }}
-                      transition={{ duration: 0.5 }}
-                    />
+                    <span className="relative z-10">Deploy.Init()</span>
                   </a>
                 </Button>
               </MagneticWrapper>
               <MagneticWrapper>
-                <Button variant="heroOutline" size="xl" asChild className="hover-lift">
-                  <a href="#contact">Get in Touch</a>
+                <Button variant="heroOutline" size="xl" asChild className="hover-lift font-mono border-border text-foreground hover:bg-secondary">
+                  <a href="#contact">Contact_Me</a>
                 </Button>
               </MagneticWrapper>
             </div>
@@ -183,11 +164,29 @@ const Hero = () => {
             </div>
           </motion.div>
         </motion.div>
+
+        {/* Terminal Window on the right */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+          className="hidden lg:block w-full"
+        >
+          <TerminalWindow 
+            commands={[
+              "systemctl start aura-ai-daemon",
+              "[AuraAI] Initializing LangGraph state machine...",
+              "[AuraAI] Mounting local Ollama node...",
+              "[HeyGIT] Starting cross-platform proxy servers...",
+              "[System] Ecosystem online. Monitoring secure traffic."
+            ]}
+          />
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}

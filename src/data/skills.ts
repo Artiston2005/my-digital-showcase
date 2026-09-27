@@ -2,23 +2,23 @@ import { Code2, Smartphone, Wrench, Brain } from "lucide-react";
 
 export const skills = [
     {
-        category: "Machine Learning Concepts",
-        icon: Brain,
-        items: ["Python", "TensorFlow", "Scikit", "Neural Networks", "Data Mining"]
-    },
-    {
-        category: "Systems & Logic",
-        icon: Code2,
-        items: ["C++", "Java", "Data Structures", "Algorithms", "Optimization"]
-    },
-    {
-        category: "Web & Telemetry",
+        category: "Frontend Architecture",
         icon: Smartphone,
-        items: ["React", "TypeScript", "Tailwind CSS", "REST Architectures", "Node.js"]
+        items: ["React", "TypeScript", "Tailwind CSS", "Jetpack Compose", "Android UI/XML", "Framer Motion"]
     },
     {
-        category: "Development Tooling",
+        category: "Backend & Systems",
+        icon: Code2,
+        items: ["Python", "Kotlin", "FastAPI", "Firebase", "WebSockets", "Node.js"]
+    },
+    {
+        category: "Data & ML",
+        icon: Brain,
+        items: ["LangGraph / RAG", "ChromaDB", "Supabase", "PostgreSQL", "Google Gemini", "Ollama"]
+    },
+    {
+        category: "DevOps & Tooling",
         icon: Wrench,
-        items: ["Git Lifecycle", "Docker", "VS Code", "Unix Systems", "Android Studio"]
+        items: ["Git", "Docker", "Linux / Unix", "Gradle", "Android Studio"]
     },
 ];

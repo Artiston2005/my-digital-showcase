@@ -198,7 +198,7 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                     <div className="flex flex-col gap-2">
                         {project.featured && (
                             <span className="text-xs font-mono tracking-widest text-primary uppercase inline-block font-semibold">
-                                FEATURED_VIBE
+                                {`[System.Module.Featured]`}
                             </span>
                         )}
                         <h3 className="font-display font-bold text-2xl group-hover:text-primary transition-colors tracking-tight">
@@ -206,7 +206,7 @@ const ProjectCard = ({ project, isLandscape = false }: { project: Project; isLan
                         </h3>
                     </div>
 
-                    <p className="text-muted-foreground font-body leading-relaxed text-sm lg:text-base">
+                    <p className="text-muted-foreground font-mono leading-relaxed text-sm lg:text-base border-l-2 border-primary/30 pl-4 py-1">
                         {project.description}
                     </p>
 

@@ -1,5 +1,5 @@
 import ScrollReveal from "@/components/ScrollReveal";
-import profileImage from "@/assets/profile.jpg";
+import profileImage from "@/assets/profile.webp";
 
 const About = () => {
   const stats = [
@@ -50,14 +50,16 @@ const About = () => {
             
             <ScrollReveal direction="left" delay={0.2} className="space-y-5 text-muted-foreground font-body text-lg leading-relaxed">
               <p>
-                I'm Ashwin Yadav, a second year Computer Science & Engineering student 
-                at GIT Jaipur. I love building software that solves real-world problems 
-                and makes life easier for users.
+                I'm Ashwin Yadav, a second-year Computer Science & Engineering student 
+                at GIT Jaipur. My core focus lies in engineering complex, autonomous systems—from 
+                local Agentic AI platforms with long-term memory to secure, cross-platform 
+                network architectures.
               </p>
               <p>
-                From Python automation tools to Android apps, I enjoy exploring different 
-                technologies and creating projects that have practical applications. 
-                I believe in learning by doing and constantly challenging myself with new projects.
+                Whether I am writing Python subprocess sandboxes for LLMs, managing WebSocket streams, 
+                or automating campus-wide captive portal authentication using Kotlin and Firebase, 
+                I engineer solutions that are robust, autonomous, and highly optimized. I don't 
+                just build apps; I architect intelligent ecosystems.
               </p>
             </ScrollReveal>
             
