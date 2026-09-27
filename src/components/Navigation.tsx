@@ -32,6 +32,14 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isPhoneDevice, setIsPhoneDevice] = useState(false);
+
+  useEffect(() => {
+    const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const androidPhone = /Android/i.test(ua) && /Mobile/i.test(ua);
+    const iosPhone = /iPhone|iPod/i.test(ua);
+    setIsPhoneDevice(androidPhone || iosPhone);
+  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -86,9 +94,11 @@ const Navigation = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="md:hidden w-full bg-primary/10 border-b border-primary/20 text-primary text-[10px] sm:text-xs font-mono tracking-widest uppercase text-center py-1.5 backdrop-blur-md">
-          * Best experienced on desktop *
-        </div>
+        {isPhoneDevice && (
+          <div className="w-full bg-primary/10 border-b border-primary/20 text-primary text-[10px] sm:text-xs font-mono tracking-widest uppercase text-center py-1.5 backdrop-blur-md">
+            * Best experienced on desktop *
+          </div>
+        )}
         <nav className={`max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between transition-all duration-500 ${isScrolled ? "py-3" : "py-6"}`}>
           {/* Updated Logo */}
           <a href="#" className="font-display font-bold text-xl lg:text-2xl gradient-text relative z-50 tracking-tight">

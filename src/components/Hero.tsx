@@ -54,7 +54,7 @@ const Hero = () => {
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "0%" : "100%"]);
 
   return (
-    <section ref={ref} className="min-h-screen flex flex-col justify-center relative overflow-hidden px-6 lg:px-12 selection:bg-primary/20">
+    <section ref={ref} className="min-h-screen flex flex-col relative overflow-hidden px-6 lg:px-12 selection:bg-primary/20">
 
       {/* --- BACKGROUND LAYERS --- */}
       <motion.div
@@ -84,7 +84,7 @@ const Hero = () => {
       </motion.div>
 
       {/* --- MAIN CONTENT --- */}
-      <div className="max-w-7xl mx-auto w-full relative z-10 pt-32 pb-16 md:py-0 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+      <div className="max-w-7xl mx-auto my-auto w-full relative z-10 pt-32 pb-24 md:pt-40 md:pb-32 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
         <motion.div className="space-y-6 md:space-y-8" style={{ y: textY }}>
           <motion.div
             className="flex items-center gap-4"
