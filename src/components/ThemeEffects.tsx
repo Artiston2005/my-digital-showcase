@@ -239,7 +239,7 @@ const ThemeEffects = () => {
           transition={{ duration: 12, repeat: Infinity }}
         />
         <motion.div
-          className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-cyan-500/10 rounded-full mix-blend-multiply"
+          className="absolute top-[20%] right-[10%] w-[40vw] h-[40vw] bg-primary/10 rounded-full mix-blend-multiply"
           animate={{ x: [0, 30, 0], y: [0, 30, 0] }}
           transition={{ duration: 15, repeat: Infinity }}
         />

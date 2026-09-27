@@ -1,6 +1,6 @@
 import { Smartphone, Shield, Monitor, Brain, Zap, Database, Terminal, Network } from "lucide-react";
-import gitkaWifiImage from "@/assets/gitkawifi.webp";
-import gitkaWifiAdminImage from "@/assets/gitkawifi_admin.webp";
+import heyGitImage from "@/assets/HeyGIT.webp";
+import heyGitAdminImage from "@/assets/HeyGIT_admin.webp";
 import gitkaWifiPcImage from "@/assets/gitkawifi_pc.webp";
 import rtukagyanImage from "@/assets/RTUKagyan.webp";
 import quizGameImage from "@/assets/quiz-game.webp";
@@ -39,8 +39,8 @@ export const projects: Project[] = [
         image: gitkaWifiPcImage,
         gallery: [
             { src: gitkaWifiPcImage, label: "Windows Client" },
-            { src: gitkaWifiImage, label: "Student App" },
-            { src: gitkaWifiAdminImage, label: "Admin Panel" },
+            { src: heyGitImage, label: "Student App" },
+            { src: heyGitAdminImage, label: "Admin Panel" },
         ],
         featured: true,
         details: [

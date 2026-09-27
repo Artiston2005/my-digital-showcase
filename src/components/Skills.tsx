@@ -33,7 +33,7 @@ export default function Skills() {
                     {skill.items.map((item) => (
                       <span
                         key={item}
-                        className="px-3 py-1.5 bg-background/50 backdrop-blur-md text-foreground/90 font-body text-xs sm:text-sm shadow-sm rounded-full border border-border/40 transition-all hover:bg-primary/20 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_rgba(255,0,255,0.3)] cursor-default"
+                        className="px-3 py-1.5 bg-secondary/80 text-foreground/90 font-body text-xs sm:text-sm shadow-sm rounded-full border border-border/40 transition-all hover:bg-primary/20 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_15px_hsl(var(--primary)/0.3)] cursor-default hardware-accelerated"
                       >
                         {item}
                       </span>

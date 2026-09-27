@@ -13,20 +13,20 @@ interface ScrollRevealProps {
 
 const directionVariants: Record<string, { hidden: object; visible: object }> = {
   up: {
-    hidden: { opacity: 0, y: 40 }, // Reduced distance from 60 to 40
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 60, scale: 0.95, rotateX: 15 },
+    visible: { opacity: 1, y: 0, scale: 1, rotateX: 0 },
   },
   down: {
-    hidden: { opacity: 0, y: -40 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: -60, scale: 0.95, rotateX: -15 },
+    visible: { opacity: 1, y: 0, scale: 1, rotateX: 0 },
   },
   left: {
-    hidden: { opacity: 0, x: 40 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: 60, scale: 0.95, rotateY: -15 },
+    visible: { opacity: 1, x: 0, scale: 1, rotateY: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: -40 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -60, scale: 0.95, rotateY: 15 },
+    visible: { opacity: 1, x: 0, scale: 1, rotateY: 0 },
   },
   none: {
     hidden: { opacity: 0 },
@@ -54,11 +54,12 @@ const ScrollReveal = ({
       animate={isInView ? "visible" : "hidden"}
       variants={variants as Variants}
       transition={{
-        duration,
+        duration: duration * 1.5,
         delay,
-        ease: "easeOut", // Simpler easeOut is often snappier than complex beziers
+        ease: [0.16, 1, 0.3, 1],
       }}
       className={className}
+      style={{ perspective: "1000px" }}
     >
       {children}
     </motion.div>

@@ -96,7 +96,7 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
     let output: React.ReactNode = "";
     const lowerCmd = trimmed.toLowerCase();
 
-    switch (lowerCmd) {
+    switch (lowerCmd.split(' ')[0]) {
       case 'help':
         output = (
           <div className="flex flex-col gap-1 text-green-400">
@@ -104,7 +104,10 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
             <span>  <strong className="text-white">whoami</strong>   - View my identity</span>
             <span>  <strong className="text-white">skills</strong>   - List tech stack</span>
             <span>  <strong className="text-white">projects</strong> - Display key projects</span>
-            <span>  <strong className="text-white">sudo</strong>     - Superuser access</span>
+            <span>  <strong className="text-white">ls</strong>       - List directory contents</span>
+            <span>  <strong className="text-white">cat</strong>      - Read file contents</span>
+            <span>  <strong className="text-white">theme</strong>    - Change system theme (e.g. theme dark)</span>
+            <span>  <strong className="text-white">date</strong>     - Show system time</span>
             <span>  <strong className="text-white">clear</strong>    - Clear terminal</span>
           </div>
         );
@@ -118,12 +121,51 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
       case 'projects':
         output = "1. AuraAI (Local Agentic AI)\n2. HeyGIT (Cross-platform Network Auth)\n3. RTUKaGyan (AI Learning Studio)";
         break;
+      case 'ls':
+        output = (
+          <div className="grid grid-cols-3 gap-4 text-primary">
+            <span>resume.pdf</span>
+            <span>projects/</span>
+            <span>skills.json</span>
+            <span>contact.txt</span>
+            <span>secrets.enc</span>
+          </div>
+        );
+        break;
+      case 'cat':
+        const file = lowerCmd.split(' ')[1];
+        if (!file) output = "Usage: cat <filename>";
+        else if (file === 'contact.txt') output = "Email: ashwin@example.com\nLinkedIn: /in/ashwinyadav";
+        else if (file === 'skills.json') output = '{ "frontend": ["React", "Compose"], "backend": ["FastAPI", "Firebase"] }';
+        else if (file === 'resume.pdf') output = <span className="text-red-400">Error: Cannot read binary file in text mode.</span>;
+        else if (file === 'secrets.enc') output = "U2FsdGVkX1+z/... Access Denied.";
+        else output = `cat: ${file}: No such file or directory`;
+        break;
+      case 'date':
+        output = new Date().toString();
+        break;
+      case 'echo':
+        output = trimmed.slice(5);
+        break;
+      case 'theme':
+        const theme = lowerCmd.split(' ')[1];
+        const validThemes = ['default', 'diwali', 'christmas', 'newyear', 'holi'];
+        if (!theme || !validThemes.includes(theme)) {
+          output = `Usage: theme <name>\nAvailable: ${validThemes.join(', ')}`;
+        } else {
+          document.documentElement.setAttribute('data-theme', theme === 'default' ? '' : theme);
+          output = `[SYSTEM] Theme successfully switched to '${theme}'`;
+        }
+        break;
       case 'clear':
         setHistory([]);
         return;
-      case 'sudo rm -rf /':
       case 'sudo':
-        output = <span className="text-red-500">Nice try. This incident will be reported.</span>;
+        if (lowerCmd === 'sudo rm -rf /') {
+          output = <span className="text-red-500">Nice try. This incident will be reported.</span>;
+        } else {
+          output = "sudo: user is not in the sudoers file. This incident will be reported.";
+        }
         break;
       default:
         output = <span className="text-red-400">Command not found: {trimmed}. Type 'help' for available commands.</span>;
@@ -159,7 +201,7 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       onClick={handleTerminalClick}
-      className="rounded-xl overflow-hidden border border-border bg-[#0d0d0f]/90 backdrop-blur-md shadow-[0_0_40px_rgba(0,120,255,0.1)] w-full max-w-2xl mx-auto h-[400px] flex flex-col cursor-text"
+      className="rounded-xl overflow-hidden border border-border bg-[#0d0d0f]/90 backdrop-blur-md shadow-[0_0_40px_hsl(var(--primary)/0.15)] w-full max-w-2xl mx-auto h-[400px] flex flex-col cursor-text"
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-2 bg-black/40 border-b border-border/50 shrink-0">
@@ -194,7 +236,7 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
               {line.type === 'command' && (
                 <div className="flex gap-2 text-primary">
                   <span className="text-green-500 font-bold">➜</span>
-                  <span className="text-blue-400 font-bold">~</span>
+                  <span className="text-primary font-bold">~</span>
                   <span className="text-gray-100">{line.content}</span>
                 </div>
               )}
@@ -204,7 +246,7 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
                 </div>
               )}
               {line.type === 'system' && (
-                <div className="text-cyan-400 italic mb-4 mt-2 border-l-2 border-cyan-500/30 pl-2">
+                <div className="text-primary italic mb-4 mt-2 border-l-2 border-primary/30 pl-2">
                   {line.content}
                 </div>
               )}
@@ -214,7 +256,7 @@ const TerminalWindow = ({ commands }: TerminalWindowProps) => {
           {/* Current Typing / Input Line */}
           <div className="flex gap-2 text-primary items-center">
             <span className="text-green-500 font-bold">➜</span>
-            <span className="text-blue-400 font-bold">~</span>
+            <span className="text-primary font-bold">~</span>
             
             {!isInteractive ? (
               <span className="text-gray-100">

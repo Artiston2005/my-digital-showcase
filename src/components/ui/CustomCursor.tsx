@@ -22,6 +22,8 @@ const CustomCursor = () => {
 
         setIsVisible(true);
 
+        document.body.classList.add('cursor-none-global');
+
         const moveCursor = (e: MouseEvent) => {
             cursorX.set(e.clientX - 16);
             cursorY.set(e.clientY - 16);
@@ -48,6 +50,7 @@ const CustomCursor = () => {
         document.addEventListener("mouseover", handleMouseOver);
 
         return () => {
+            document.body.classList.remove('cursor-none-global');
             window.removeEventListener("mousemove", moveCursor);
             document.removeEventListener("mouseover", handleMouseOver);
         };
@@ -57,28 +60,39 @@ const CustomCursor = () => {
 
     return (
         <>
-            {/* Glowing Orb Cursor */}
+            {/* Tech Ring Cursor */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/50 pointer-events-none z-[9999] mix-blend-screen hidden md:block bg-primary/10 shadow-[0_0_20px_rgba(255,0,255,0.4)]"
+                className="fixed top-0 left-0 w-10 h-10 rounded-full border-[1.5px] border-primary/60 pointer-events-none z-[9999] hidden md:block flex items-center justify-center backdrop-invert-[0.1]"
                 style={{
                     x: cursorXSpring,
                     y: cursorYSpring,
+                    translateX: "-4px",
+                    translateY: "-4px",
                 }}
                 animate={{
-                    scale: isHovering ? 2 : 1,
-                    backgroundColor: isHovering ? "rgba(255, 0, 255, 0.2)" : "rgba(255, 0, 255, 0.05)",
-                    boxShadow: isHovering ? "0 0 40px rgba(255,0,255,0.8)" : "0 0 20px rgba(255,0,255,0.4)"
+                    scale: isHovering ? 1.4 : 1,
+                    backgroundColor: isHovering ? "hsl(var(--primary) / 0.1)" : "transparent",
+                    borderColor: isHovering ? "hsl(var(--primary) / 0.8)" : "hsl(var(--primary) / 0.4)"
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            />
+                transition={{ type: "spring", stiffness: 400, damping: 28 }}
+            >
+              {isHovering && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute inset-0 border-[1px] border-primary/30 rounded-full scale-[1.2] animate-pulse"
+                />
+              )}
+            </motion.div>
 
+            {/* Inner Dot */}
             <motion.div
-                className="fixed top-0 left-0 w-2 h-2 rounded-full bg-foreground pointer-events-none z-[9999] mix-blend-difference hidden md:block shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                className="fixed top-0 left-0 w-1.5 h-1.5 rounded-none bg-primary pointer-events-none z-[9999] hidden md:block shadow-[0_0_8px_hsl(var(--primary))]"
                 style={{
                     x: innerCursorXSpring,
                     y: innerCursorYSpring,
-                    translateX: "12px",
-                    translateY: "12px",
+                    translateX: "13px",
+                    translateY: "13px",
                 }}
                 animate={{
                     scale: isHovering ? 0 : 1,

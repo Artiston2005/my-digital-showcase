@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeEffects from "@/components/ThemeEffects";
 import CustomCursor from "@/components/ui/CustomCursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import SmoothScrolling from "@/components/SmoothScrolling";
 
 // Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
@@ -36,14 +37,16 @@ const App = () => {
           {isLoading ? (
             <Preloader onComplete={() => setIsLoading(false)} />
           ) : (
-            <BrowserRouter>
-              <Suspense fallback={<div className="min-h-screen bg-background" />}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </BrowserRouter>
+            <SmoothScrolling>
+              <BrowserRouter>
+                <Suspense fallback={<div className="min-h-screen bg-background" />}>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </BrowserRouter>
+            </SmoothScrolling>
           )}
         </TooltipProvider>
 
