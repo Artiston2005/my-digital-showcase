@@ -50,14 +50,14 @@ const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, 2]);
-  const contentOpacity = useTransform(scrollYProgress, [0.3, 0.8], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.8], [1, isMobile ? 1 : 1.2]);
+  const contentOpacity = useTransform(scrollYProgress, [0.3, 0.8], [1, isMobile ? 1 : 0]);
 
   return (
-    <section ref={ref} className="h-[150vh] md:h-[200vh] relative">
-      <div className="sticky top-0 h-[100dvh] w-full relative overflow-hidden selection:bg-primary/20">
+    <section ref={ref} className={`${isMobile ? 'min-h-[100dvh]' : 'h-[150vh] md:h-[200vh]'} relative`}>
+      <div className={`${isMobile ? 'relative' : 'sticky top-0 h-[100dvh]'} w-full overflow-hidden selection:bg-primary/20`}>
         <motion.div 
-          className="w-full h-full flex flex-col px-6 lg:px-12 relative"
+          className="w-full min-h-[100dvh] flex flex-col px-6 lg:px-12 relative"
           style={{ 
             scale: contentScale,
             opacity: contentOpacity,
