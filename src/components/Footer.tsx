@@ -34,7 +34,20 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-4 relative py-4">
+            {/* Mobile-only Blueprint Grid */}
+            <div className="absolute inset-0 pointer-events-none flex md:hidden items-center justify-center">
+              {/* Horizontal line cutting through all icons */}
+              <div className="absolute w-[120%] h-[1px] bg-border/50 top-1/2 -translate-y-1/2" />
+              
+              {/* Vertical lines cutting through each icon */}
+              <div className="flex gap-4 w-[164px] h-[150%] absolute top-1/2 -translate-y-1/2 justify-between">
+                <div className="w-[1px] h-full bg-border/50 ml-[22px]" />
+                <div className="w-[1px] h-full bg-border/50" />
+                <div className="w-[1px] h-full bg-border/50 mr-[22px]" />
+              </div>
+            </div>
+
             {socialLinks.map(({ icon: Icon, href, label }, index) => (
               <motion.a
                 key={label}
@@ -42,12 +55,12 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
+                className="relative z-10 w-11 h-11 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 bg-background transition-all duration-300"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 * index }}
               >
-                <Icon className="w-5 h-5" />
+                <Icon className="w-5 h-5 relative z-10 bg-background" />
               </motion.a>
             ))}
           </div>
